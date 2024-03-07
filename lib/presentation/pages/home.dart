@@ -23,74 +23,86 @@ class _HomeState extends State<Home> {
           child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: Spacing.standard * 2),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: Spacing.large),
-              decoration: const BoxDecoration(
-                  border: Border(bottom: BorderSide(color: AppColors.border))),
-              child: Row(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const AppBarMenuItem(title: ViewConstants.men),
-                      SizedBox(
-                        width: Responsive.width(context) * 3,
-                      ),
-                      const AppBarMenuItem(title: ViewConstants.women),
-                      SizedBox(
-                        width: Responsive.width(context) * 3,
-                      ),
-                      const AppBarMenuItem(title: ViewConstants.kids),
-                      SizedBox(
-                        width: Responsive.width(context) * 3,
-                      ),
-                      const AppBarMenuItem(title: ViewConstants.brands)
-                    ],
-                  ),
-                  const Spacer(
-                    flex: 6,
-                  ),
-                  Text(
-                    ViewConstants.appTitle.toUpperCase(),
-                    style: const TextStyle(
-                        fontSize: FontSize.xlarge, fontWeight: FontWeight.w500),
-                  ),
-                  const Spacer(
-                    flex: 7,
-                  ),
-                  Row(
-                    children: [
-                      appBarIcon(Icons.search_outlined),
-                      SizedBox(
-                        width: Responsive.width(context) * 1.5,
-                      ),
-                      appBarIcon(Icons.person_outlined),
-                      SizedBox(
-                        width: Responsive.width(context) * 1.5,
-                      ),
-                      appBarIcon(Icons.favorite_outline_outlined),
-                      SizedBox(
-                        width: Responsive.width(context) * 1.5,
-                      ),
-                      appBarIcon(Icons.shopping_bag_outlined),
-                    ],
-                  )
-                ],
+            appBar(context),
+            const Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: Spacing.standard,
+                    ),
+                    SelectedItemsThread(),
+                    SizedBox(
+                      height: Spacing.standard * 3,
+                    ),
+                    ClothesPage()
+                  ],
+                ),
               ),
             ),
-            const SizedBox(
-              height: Spacing.standard,
-            ),
-            const SelectedItemsThread(),
-            const SizedBox(
-              height: Spacing.standard * 3,
-            ),
-            const ClothesPage()
           ],
         ),
       )),
+    );
+  }
+
+  Container appBar(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: Spacing.large),
+      decoration: const BoxDecoration(
+          border: Border(bottom: BorderSide(color: AppColors.border))),
+      child: Row(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const AppBarMenuItem(title: ViewConstants.men),
+              SizedBox(
+                width: Responsive.width(context) * 3,
+              ),
+              const AppBarMenuItem(title: ViewConstants.women),
+              SizedBox(
+                width: Responsive.width(context) * 3,
+              ),
+              const AppBarMenuItem(title: ViewConstants.kids),
+              SizedBox(
+                width: Responsive.width(context) * 3,
+              ),
+              const AppBarMenuItem(title: ViewConstants.brands)
+            ],
+          ),
+          const Spacer(
+            flex: 6,
+          ),
+          Text(
+            ViewConstants.appTitle.toUpperCase(),
+            style: const TextStyle(
+                fontSize: FontSize.xlarge, fontWeight: FontWeight.w500),
+          ),
+          const Spacer(
+            flex: 7,
+          ),
+          Row(
+            children: [
+              appBarIcon(Icons.search_outlined),
+              SizedBox(
+                width: Responsive.width(context) * 1.5,
+              ),
+              appBarIcon(Icons.person_outlined),
+              SizedBox(
+                width: Responsive.width(context) * 1.5,
+              ),
+              appBarIcon(Icons.favorite_outline_outlined),
+              SizedBox(
+                width: Responsive.width(context) * 1.5,
+              ),
+              appBarIcon(Icons.shopping_bag_outlined),
+            ],
+          )
+        ],
+      ),
     );
   }
 

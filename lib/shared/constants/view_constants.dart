@@ -7,4 +7,5 @@ class ViewConstants {
   static const String clothes = "Clothes";
   static const String results = "Results";
   static const String filters = "Filters";
+  static const String sortBy = "Sort By";
 }
