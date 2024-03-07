@@ -4,32 +4,45 @@ import 'package:e_commerce_site/shared/constants/spacing.dart';
 import 'package:flutter/material.dart';
 
 class DecoratedText extends StatefulWidget {
-  const DecoratedText({super.key, required this.text, this.onTap});
+  const DecoratedText({
+    super.key,
+    required this.text,
+    this.onTap,
+    this.fontSize,
+    this.color,
+    this.applyHover = true,
+    this.isDecorated = true,
+  });
 
   final String text;
   final void Function()? onTap;
+  final double? fontSize;
+  final Color? color;
+  final bool applyHover;
+  final bool isDecorated;
 
   @override
   State<DecoratedText> createState() => _ShowMoreButtonState();
 }
 
 class _ShowMoreButtonState extends State<DecoratedText> {
-  Color? color;
+  late Color? color = widget.color;
   Color? decorationColor;
-  late final onTap = widget.onTap ?? () {};
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: Spacing.standard),
       child: CustomInkWell(
-        onHover: onHover,
-        onTap: onTap,
+        onHover: widget.applyHover ? onHover : null,
+        onTap: widget.onTap,
         child: Text(
           widget.text,
           style: TextStyle(
               color: color,
-              decoration: TextDecoration.underline,
-              decorationColor: color),
+              decoration: widget.isDecorated ? TextDecoration.underline : null,
+              decorationColor: widget.isDecorated ? color : null,
+              fontSize: widget.fontSize),
         ),
       ),
     );
@@ -39,7 +52,7 @@ class _ShowMoreButtonState extends State<DecoratedText> {
     if (isHovering) {
       color = AppColors.highlight;
     } else {
-      color = null;
+      color = widget.color;
     }
     setState(() {});
   }

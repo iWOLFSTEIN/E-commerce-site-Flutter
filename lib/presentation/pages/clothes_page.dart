@@ -43,7 +43,7 @@ class _ClothesPageState extends State<ClothesPage> {
         ),
         const DecoratedText(text: ViewConstants.showMore),
         const SizedBox(
-          height: Spacing.standard * 2,
+          height: Spacing.standard * 3,
         ),
         PaginationControls(
             currentPage: currentPageNumber,

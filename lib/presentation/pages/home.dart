@@ -1,8 +1,11 @@
 import 'package:e_commerce_site/presentation/pages/clothes_page.dart';
+import 'package:e_commerce_site/presentation/widgets/decorated_text.dart';
 import 'package:e_commerce_site/presentation/widgets/home/app_bar_menu_item.dart';
 import 'package:e_commerce_site/presentation/widgets/home/selected_items_thread.dart';
 import 'package:e_commerce_site/presentation/widgets/responsive_layout.dart';
+import 'package:e_commerce_site/shared/constants/app_assets.dart';
 import 'package:e_commerce_site/shared/constants/app_colors.dart';
+import 'package:e_commerce_site/shared/constants/app_icons.dart';
 import 'package:e_commerce_site/shared/constants/font_size.dart';
 import 'package:e_commerce_site/shared/constants/spacing.dart';
 import 'package:e_commerce_site/shared/constants/view_constants.dart';
@@ -108,17 +111,146 @@ class _HomeState extends State<Home> {
   }
 
   Column page() {
-    return const Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
+        const SizedBox(
           height: Spacing.standard,
         ),
-        SelectedItemsThread(),
-        SizedBox(
+        const SelectedItemsThread(),
+        const SizedBox(
           height: Spacing.standard * 3,
         ),
-        ClothesPage(),
+        const ClothesPage(),
+        const SizedBox(
+          height: Spacing.standard * 7,
+        ),
+        const Divider(
+          color: AppColors.border,
+        ),
+        const SizedBox(
+          height: Spacing.standard,
+        ),
+        footer(),
+      ],
+    );
+  }
+
+  Widget footer() {
+    showIcon(icon) => Image.asset(
+          "${AppAssets.icons}/$icon",
+          height: 30,
+          width: 30,
+        );
+    return SizedBox(
+      width: double.infinity,
+      child: Wrap(
+        alignment: WrapAlignment.spaceBetween,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  appTitle(),
+                  const SizedBox(
+                    height: Spacing.small,
+                  ),
+                  Container(
+                    constraints: const BoxConstraints(maxWidth: 400),
+                    child: const Wrap(
+                      children: [
+                        Text(
+                          ViewConstants.siteDescription,
+                          style: TextStyle(
+                              color: AppColors.secondary,
+                              fontSize: FontSize.regular + 1),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: Spacing.standard,
+                  ),
+                  Row(
+                    children: [
+                      showIcon(AppIcons.facebook),
+                      const SizedBox(
+                        width: Spacing.normal,
+                      ),
+                      showIcon(AppIcons.instagram),
+                      const SizedBox(
+                        width: Spacing.normal,
+                      ),
+                      showIcon(AppIcons.x),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: Spacing.standard,
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Wrap(
+            spacing: Spacing.standard * 6,
+            children: [
+              footerItem(title: ViewConstants.navigations, widgets: [
+                showSelectableDecoratedText(ViewConstants.men),
+                showSelectableDecoratedText(ViewConstants.women),
+                showSelectableDecoratedText(ViewConstants.kids),
+                showSelectableDecoratedText(ViewConstants.brands),
+              ]),
+              footerItem(title: ViewConstants.customers, widgets: [
+                showSelectableDecoratedText(ViewConstants.promotions),
+                showSelectableDecoratedText(ViewConstants.delivery),
+                showSelectableDecoratedText(ViewConstants.payment),
+                showSelectableDecoratedText(ViewConstants.giftCard),
+              ]),
+              footerItem(title: ViewConstants.about, widgets: [
+                showSelectableDecoratedText(ViewConstants.news),
+                showSelectableDecoratedText(ViewConstants.publicOffer),
+                showSelectableDecoratedText(ViewConstants.userAgreement),
+                showSelectableDecoratedText(ViewConstants.privacyPolicy),
+              ]),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  showSelectableDecoratedText(String text) => Padding(
+        padding: const EdgeInsets.only(bottom: Spacing.normal),
+        child: DecoratedText(
+          text: text.toUpperCase(),
+          fontSize: FontSize.regular,
+          isDecorated: false,
+          color: AppColors.secondary,
+          onTap: () {},
+        ),
+      );
+  Column footerItem({required String title, required List<Widget> widgets}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        DecoratedText(
+          text: title.toUpperCase(),
+          fontSize: FontSize.medium,
+          applyHover: false,
+          isDecorated: false,
+        ),
+        const SizedBox(
+          height: Spacing.standard,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: widgets,
+        ),
+        const SizedBox(
+          height: Spacing.normal,
+        ),
       ],
     );
   }
