@@ -9,4 +9,7 @@ class ViewConstants {
   static const String filters = "Filters";
   static const String sortBy = "Sort By";
   static const String categories = "Categories";
+  static const String showMore = "Show More";
+  static const String prev = "prev";
+  static const String next = "next";
 }

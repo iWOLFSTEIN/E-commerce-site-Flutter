@@ -1,5 +1,7 @@
 import 'package:e_commerce_site/presentation/pages/clothes_page.dart';
+import 'package:e_commerce_site/presentation/widgets/decorated_text.dart';
 import 'package:e_commerce_site/presentation/widgets/home/app_bar_menu_item.dart';
+import 'package:e_commerce_site/presentation/widgets/home/pagination_controls.dart';
 import 'package:e_commerce_site/presentation/widgets/home/selected_items_thread.dart';
 import 'package:e_commerce_site/presentation/widgets/responsive_layout.dart';
 import 'package:e_commerce_site/shared/constants/app_colors.dart';
@@ -32,7 +34,7 @@ class _HomeState extends State<Home> {
           child: Column(
         children: [
           appBarDesktop(),
-          bodyDesktop(),
+          body(sidePadding: Spacing.standard * 2),
         ],
       )),
     );
@@ -45,7 +47,7 @@ class _HomeState extends State<Home> {
           child: Column(
         children: [
           appBarMobile(),
-          bodyMobile(),
+          body(sidePadding: Spacing.standard),
         ],
       )),
       drawer: Drawer(
@@ -96,22 +98,11 @@ class _HomeState extends State<Home> {
         ));
   }
 
-  Expanded bodyDesktop() {
+  Expanded body({required double sidePadding}) {
     return Expanded(
       child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: Spacing.standard * 2),
-          child: page(),
-        ),
-      ),
-    );
-  }
-
-  Expanded bodyMobile() {
-    return Expanded(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: Spacing.standard),
+          padding: EdgeInsets.symmetric(horizontal: sidePadding),
           child: page(),
         ),
       ),
@@ -119,17 +110,30 @@ class _HomeState extends State<Home> {
   }
 
   Column page() {
-    return const Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
+        const SizedBox(
           height: Spacing.standard,
         ),
-        SelectedItemsThread(),
-        SizedBox(
+        const SelectedItemsThread(),
+        const SizedBox(
           height: Spacing.standard * 3,
         ),
-        ClothesPage()
+        const ClothesPage(),
+        const SizedBox(
+          height: Spacing.standard * 1.5,
+        ),
+        const DecoratedText(text: ViewConstants.showMore),
+        const SizedBox(
+          height: Spacing.standard * 2,
+        ),
+        PaginationControls(
+            currentPage: 1,
+            totalPages: 3,
+            onNextPressed: () {},
+            onPrevPressed: () {},
+            onPageSelected: (pageNumber) {})
       ],
     );
   }
