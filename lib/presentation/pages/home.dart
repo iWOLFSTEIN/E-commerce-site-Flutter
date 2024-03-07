@@ -1,7 +1,5 @@
 import 'package:e_commerce_site/presentation/pages/clothes_page.dart';
-import 'package:e_commerce_site/presentation/widgets/decorated_text.dart';
 import 'package:e_commerce_site/presentation/widgets/home/app_bar_menu_item.dart';
-import 'package:e_commerce_site/presentation/widgets/home/pagination_controls.dart';
 import 'package:e_commerce_site/presentation/widgets/home/selected_items_thread.dart';
 import 'package:e_commerce_site/presentation/widgets/responsive_layout.dart';
 import 'package:e_commerce_site/shared/constants/app_colors.dart';
@@ -110,30 +108,17 @@ class _HomeState extends State<Home> {
   }
 
   Column page() {
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(
+        SizedBox(
           height: Spacing.standard,
         ),
-        const SelectedItemsThread(),
-        const SizedBox(
+        SelectedItemsThread(),
+        SizedBox(
           height: Spacing.standard * 3,
         ),
-        const ClothesPage(),
-        const SizedBox(
-          height: Spacing.standard * 1.5,
-        ),
-        const DecoratedText(text: ViewConstants.showMore),
-        const SizedBox(
-          height: Spacing.standard * 2,
-        ),
-        PaginationControls(
-            currentPage: 1,
-            totalPages: 3,
-            onNextPressed: () {},
-            onPrevPressed: () {},
-            onPageSelected: (pageNumber) {})
+        ClothesPage(),
       ],
     );
   }

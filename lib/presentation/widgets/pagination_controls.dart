@@ -28,17 +28,75 @@ class PaginationControls extends StatefulWidget {
 class _PaginationControlsState extends State<PaginationControls> {
   Color color = AppColors.secondary;
   int currentHoverPageNumber = 0;
+  List<int> pageNumbersVisibilityList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    setPageNumberVisibilityList();
+  }
+
+  void setPageNumberVisibilityList() {
+    for (int page = 1; page <= widget.totalPages; page++) {
+      pageNumbersVisibilityList.add(page);
+      if (page == 3) break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        DecoratedText(text: ViewConstants.prev, onTap: widget.onPrevPressed),
+        DecoratedText(
+            text: ViewConstants.prev,
+            onTap: () {
+              int prevPage = widget.currentPage - 1;
+              if (prevPage < widget.totalPages && prevPage > 0) {
+                if (!pageNumbersVisibilityList.contains(prevPage)) {
+                  pageNumbersVisibilityList.removeLast();
+                  pageNumbersVisibilityList.insert(0, prevPage);
+                }
+              }
+              widget.onPrevPressed();
+            }),
         const SizedBox(width: Spacing.standard * 2),
-        for (int i = 1; i <= widget.totalPages; i++) pageNumber(i),
+        if (widget.totalPages < 4)
+          for (int i = 1; i <= widget.totalPages; i++) pageNumber(i)
+        else
+          manyPages(),
         const SizedBox(width: Spacing.standard * 2),
-        DecoratedText(text: ViewConstants.next, onTap: widget.onNextPressed),
+        DecoratedText(
+            text: ViewConstants.next,
+            onTap: () {
+              int nextPage = widget.currentPage + 1;
+              if (nextPage < widget.totalPages) {
+                if (!pageNumbersVisibilityList.contains(nextPage)) {
+                  pageNumbersVisibilityList.removeAt(0);
+                  pageNumbersVisibilityList.add(nextPage);
+                }
+              }
+              widget.onNextPressed();
+            }),
       ],
+    );
+  }
+
+  Row manyPages() {
+    List<Widget> widgetsList = [];
+    for (int page in pageNumbersVisibilityList) {
+      widgetsList.add(pageNumber(page));
+    }
+    const periodsText = Text(
+      "...",
+      style: TextStyle(color: AppColors.secondary),
+    );
+
+    widgetsList.add(periodsText);
+    widgetsList.add(pageNumber(widget.totalPages));
+
+    return Row(
+      children: widgetsList,
     );
   }
 

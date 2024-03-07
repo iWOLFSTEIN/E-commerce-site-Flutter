@@ -1,3 +1,5 @@
+import 'package:e_commerce_site/presentation/widgets/decorated_text.dart';
+import 'package:e_commerce_site/presentation/widgets/pagination_controls.dart';
 import 'package:e_commerce_site/shared/constants/app_assets.dart';
 import 'package:e_commerce_site/shared/constants/app_colors.dart';
 import 'package:e_commerce_site/shared/constants/app_icons.dart';
@@ -15,6 +17,9 @@ class ClothesPage extends StatefulWidget {
 }
 
 class _ClothesPageState extends State<ClothesPage> {
+  int currentPageNumber = 1;
+  int totalPages = 10;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -32,16 +37,46 @@ class _ClothesPageState extends State<ClothesPage> {
         const Divider(
           color: AppColors.border,
         ),
-        Container(
-          alignment: Alignment.center,
-          child: Wrap(
-            children: [
-              for (int i = 0; i < 18; i++)
-                shoppingItem(isHighlight: i == 5 ? true : false)
-            ],
-          ),
+        allShoppingItems(),
+        const SizedBox(
+          height: Spacing.standard * 1.5,
         ),
+        const DecoratedText(text: ViewConstants.showMore),
+        const SizedBox(
+          height: Spacing.standard * 2,
+        ),
+        PaginationControls(
+            currentPage: currentPageNumber,
+            totalPages: totalPages,
+            onNextPressed: () {
+              if (currentPageNumber < totalPages) {
+                currentPageNumber++;
+                setState(() {});
+              }
+            },
+            onPrevPressed: () {
+              if (currentPageNumber > 1) {
+                currentPageNumber--;
+                setState(() {});
+              }
+            },
+            onPageSelected: (pageNumber) {
+              currentPageNumber = pageNumber;
+              setState(() {});
+            })
       ],
+    );
+  }
+
+  Container allShoppingItems() {
+    return Container(
+      alignment: Alignment.center,
+      child: Wrap(
+        children: [
+          for (int i = 0; i < 18; i++)
+            shoppingItem(isHighlight: i == 5 ? true : false)
+        ],
+      ),
     );
   }
 
