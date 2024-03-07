@@ -19,6 +19,7 @@ class _ClothesPageState extends State<ClothesPage> {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         pageHeading(),
         const SizedBox(
@@ -30,8 +31,75 @@ class _ClothesPageState extends State<ClothesPage> {
         ),
         const Divider(
           color: AppColors.border,
-        )
+        ),
+        Container(
+          alignment: Alignment.center,
+          child: Wrap(
+            children: [
+              for (int i = 0; i < 18; i++)
+                shoppingItem(isHighlight: i == 5 ? true : false)
+            ],
+          ),
+        ),
       ],
+    );
+  }
+
+  Padding shoppingItem({isHighlight = false}) {
+    return Padding(
+      padding: const EdgeInsets.only(
+          right: Spacing.standard,
+          left: Spacing.standard,
+          bottom: Spacing.standard,
+          top: Spacing.standard),
+      child: InkWell(
+        hoverColor: AppColors.background,
+        onTap: () {},
+        child: SizedBox(
+          height: isHighlight ? 600 : 400,
+          width: isHighlight ? 450 : 250,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image.network(
+                'https://d2z0lqci37nukm.cloudfront.net/media/catalog/product/cache/59d1d247a0855e7654a8594881fa0c03/g/r/grey-herringbone-button-down-formal-shirt_1_7vxtlq5kxsuv6uur.jpg',
+                height: isHighlight ? 528 : 328,
+                width: isHighlight ? 450 : 250,
+                fit: BoxFit.cover,
+              ),
+              const SizedBox(
+                height: Spacing.medium,
+              ),
+              SizedBox(
+                height: 60,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Mens White Dress Shirt with Full Sleeves',
+                      style: TextStyle(
+                          fontSize: isHighlight
+                              ? FontSize.medium * 1.5
+                              : FontSize.medium,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    Text(
+                      '1000\$',
+                      style: TextStyle(
+                          color: AppColors.secondary,
+                          fontSize: isHighlight
+                              ? FontSize.regular * 1.5
+                              : FontSize.regular,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -46,24 +114,9 @@ class _ClothesPageState extends State<ClothesPage> {
       "Engine",
       "20\$ - 40\$",
       "Size M",
-      "Engine",
-      "20\$ - 40\$",
-      "Size M",
-      "Engine",
-      "20\$ - 40\$",
-      "Size M",
-      "Engine",
-      "20\$ - 40\$",
-      "Size M",
-      "Engine",
-      "20\$ - 40\$",
-      "Size M",
-      "Engine",
-      "20\$ - 40\$",
-      "Size M",
     ];
 
-    List<Widget> filtersWidgetList = [filtersButton()];
+    List<Widget> filtersWidgetList = [filtersButton(filtersList.length)];
     for (String filter in filtersList) {
       final widget = filterItem(filter);
       filtersWidgetList.add(widget);
@@ -89,23 +142,24 @@ class _ClothesPageState extends State<ClothesPage> {
 
   Widget sortByItem() {
     return filtersTileItem(
+        showDarkColor: true,
         child: Row(
-      children: [
-        Text(
-          ViewConstants.sortBy.toUpperCase(),
-          style: const TextStyle(
-              color: AppColors.primary, fontSize: FontSize.regular),
-        ),
-        const SizedBox(
-          width: Spacing.normal,
-        ),
-        const Icon(
-          Icons.add,
-          color: AppColors.primary,
-          size: 20,
-        )
-      ],
-    ));
+          children: [
+            Text(
+              ViewConstants.sortBy.toUpperCase(),
+              style: const TextStyle(
+                  color: AppColors.white, fontSize: FontSize.regular),
+            ),
+            const SizedBox(
+              width: Spacing.normal,
+            ),
+            const Icon(
+              Icons.add,
+              color: AppColors.white,
+              size: 20,
+            )
+          ],
+        ));
   }
 
   Widget filterItem(String text) {
@@ -129,7 +183,7 @@ class _ClothesPageState extends State<ClothesPage> {
     ));
   }
 
-  Widget filtersButton() {
+  Widget filtersButton(int filtersCount) {
     return filtersTileItem(
       showDarkColor: true,
       child: Row(
@@ -142,13 +196,13 @@ class _ClothesPageState extends State<ClothesPage> {
           const SizedBox(
             width: Spacing.normal,
           ),
-          const CircleAvatar(
+          CircleAvatar(
             backgroundColor: AppColors.background,
             radius: 10,
             child: Center(
               child: Text(
-                '0',
-                style: TextStyle(
+                '$filtersCount',
+                style: const TextStyle(
                     color: AppColors.primary, fontSize: FontSize.regular),
               ),
             ),
