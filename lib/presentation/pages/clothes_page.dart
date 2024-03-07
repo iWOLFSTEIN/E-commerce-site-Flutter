@@ -78,7 +78,7 @@ class _ClothesPageState extends State<ClothesPage> {
           ),
         ),
         SizedBox(
-          width: Responsive.width(context) * 5,
+          width: Responsive.width(context) * 2,
         ),
         Row(
           children: [sortByItem()],
