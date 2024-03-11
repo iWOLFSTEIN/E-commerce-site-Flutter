@@ -1,5 +1,5 @@
+import 'package:e_commerce_site/config/theme/app_themes.dart';
 import 'package:e_commerce_site/features/home_page/presentation/pages/home.dart';
-import 'package:e_commerce_site/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,10 +13,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: AppColors.colorSchemeLight,
-        useMaterial3: true,
-      ),
+      theme: AppThemes.theme(),
       home: const Home(),
     );
   }
