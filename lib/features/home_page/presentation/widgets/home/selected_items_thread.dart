@@ -1,7 +1,7 @@
-import 'package:e_commerce_site/shared/constants/app_colors.dart';
-import 'package:e_commerce_site/shared/constants/font_size.dart';
-import 'package:e_commerce_site/shared/constants/view_constants.dart';
-import 'package:e_commerce_site/shared/utils/responsive.dart';
+import 'package:e_commerce_site/core/constants/app_colors.dart';
+import 'package:e_commerce_site/core/constants/font_size.dart';
+import 'package:e_commerce_site/core/constants/view_constants.dart';
+import 'package:e_commerce_site/core/utils/responsive.dart';
 import 'package:flutter/material.dart';
 
 class SelectedItemsThread extends StatefulWidget {

@@ -1,15 +1,15 @@
-import 'package:e_commerce_site/presentation/pages/clothes_page.dart';
-import 'package:e_commerce_site/presentation/widgets/decorated_text.dart';
-import 'package:e_commerce_site/presentation/widgets/home/app_bar_menu_item.dart';
-import 'package:e_commerce_site/presentation/widgets/home/selected_items_thread.dart';
-import 'package:e_commerce_site/presentation/widgets/responsive_layout.dart';
-import 'package:e_commerce_site/shared/constants/app_assets.dart';
-import 'package:e_commerce_site/shared/constants/app_colors.dart';
-import 'package:e_commerce_site/shared/constants/app_icons.dart';
-import 'package:e_commerce_site/shared/constants/font_size.dart';
-import 'package:e_commerce_site/shared/constants/spacing.dart';
-import 'package:e_commerce_site/shared/constants/view_constants.dart';
-import 'package:e_commerce_site/shared/utils/responsive.dart';
+import 'package:e_commerce_site/features/home_page/presentation/pages/clothes_page.dart';
+import 'package:e_commerce_site/features/home_page/presentation/widgets/decorated_text.dart';
+import 'package:e_commerce_site/features/home_page/presentation/widgets/home/app_bar_menu_item.dart';
+import 'package:e_commerce_site/features/home_page/presentation/widgets/home/selected_items_thread.dart';
+import 'package:e_commerce_site/features/home_page/presentation/widgets/responsive_layout.dart';
+import 'package:e_commerce_site/core/constants/app_assets.dart';
+import 'package:e_commerce_site/core/constants/app_colors.dart';
+import 'package:e_commerce_site/core/constants/app_icons.dart';
+import 'package:e_commerce_site/core/constants/font_size.dart';
+import 'package:e_commerce_site/core/constants/spacing.dart';
+import 'package:e_commerce_site/core/constants/view_constants.dart';
+import 'package:e_commerce_site/core/utils/responsive.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {

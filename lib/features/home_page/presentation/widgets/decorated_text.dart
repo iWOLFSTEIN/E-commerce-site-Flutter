@@ -1,6 +1,6 @@
-import 'package:e_commerce_site/presentation/widgets/custom_ink_well.dart';
-import 'package:e_commerce_site/shared/constants/app_colors.dart';
-import 'package:e_commerce_site/shared/constants/spacing.dart';
+import 'package:e_commerce_site/features/home_page/presentation/widgets/custom_ink_well.dart';
+import 'package:e_commerce_site/core/constants/app_colors.dart';
+import 'package:e_commerce_site/core/constants/spacing.dart';
 import 'package:flutter/material.dart';
 
 class DecoratedText extends StatefulWidget {
