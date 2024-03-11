@@ -25,4 +25,26 @@ class ViewConstants {
   static const String publicOffer = "Public Offer";
   static const String userAgreement = "User Agreement";
   static const String privacyPolicy = "Privacy Policy";
+  static const String priceRange = "Price Range";
+  static const String min = "Min";
+  static const String max = "Max";
+
+  static const String minInitialValue = "100";
+  static const String maxInitialValue = "10000000";
+
+  static const String category = "Category";
+  static const String size = "Size";
+
+  static const String small = "Small";
+  static const String medium = "Medium";
+  static const String large = "Large";
+  static const String xlarge = "Extra Large";
+
+  static const String jackets = "Jackets";
+  static const String shirts = "Shirts";
+  static const String jeans = "Jeans";
+  static const String suits = "Suits";
+  static const String sleepWears = "Sleepwears";
+  static const String accessories = "Accessories";
+  static const String apply = "Apply";
 }
