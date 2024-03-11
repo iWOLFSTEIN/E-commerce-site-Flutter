@@ -43,9 +43,9 @@ class _ProductsApiService implements ProductsApiService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
-        .map((dynamic i) => ProductModel.fromJson(i as Map<String, dynamic>))
-        .toList();
+
+    List<ProductModel> value =
+        _result.data!.map((i) => ProductModel.fromJson(i)).toList();
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }

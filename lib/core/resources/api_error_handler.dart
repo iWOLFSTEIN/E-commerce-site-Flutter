@@ -5,21 +5,21 @@ import 'package:e_commerce_site/core/resources/data_state.dart';
 import 'package:retrofit/retrofit.dart';
 
 class ApiErrorHandler {
-  static Future onNetworkRequest(
+  static Future<DataState<T>> onNetworkRequest<T>(
       {required Future<HttpResponse> Function() fetch}) async {
     try {
       final httpResponse = await fetch();
       if (httpResponse.response.statusCode == HttpStatus.ok) {
-        return DataSuccess(httpResponse.data);
+        return DataSuccess<T>(httpResponse.data);
       } else {
-        return DataFailed(DioException(
+        return DataFailed<T>(DioException(
             error: httpResponse.response.statusMessage,
             response: httpResponse.response,
             type: DioExceptionType.badResponse,
             requestOptions: httpResponse.response.requestOptions));
       }
     } on DioException catch (e) {
-      DataFailed(e);
+      return DataFailed<T>(e);
     }
   }
 }

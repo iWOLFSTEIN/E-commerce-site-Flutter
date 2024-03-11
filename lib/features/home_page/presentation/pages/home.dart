@@ -1,3 +1,4 @@
+import 'package:e_commerce_site/features/home_page/presentation/bloc/product/remote/product_bloc.dart';
 import 'package:e_commerce_site/features/home_page/presentation/pages/clothes_page.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/decorated_text.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/home/app_bar_menu_item.dart';
@@ -11,6 +12,7 @@ import 'package:e_commerce_site/core/constants/spacing.dart';
 import 'package:e_commerce_site/core/constants/view_constants.dart';
 import 'package:e_commerce_site/core/utils/responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -121,7 +123,22 @@ class _HomeState extends State<Home> {
         const SizedBox(
           height: Spacing.standard * 3,
         ),
-        const ClothesPage(),
+        BlocBuilder<ProductBloc, ProductState>(
+          builder: (context, state) {
+            if (state is ProductsLoading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (state is ProductsDone) {
+              print(state.products);
+              return const ClothesPage();
+            } else if (state is ProductsException) {
+              print(state.exception?.message);
+              return const SizedBox();
+            }
+            return const SizedBox();
+          },
+        ),
         const SizedBox(
           height: Spacing.standard * 7,
         ),
