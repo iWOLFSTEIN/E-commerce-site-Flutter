@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'products_api_service.dart';
+part of 'categories_api_service.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'products_api_service.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
-class _ProductsApiService implements ProductsApiService {
-  _ProductsApiService(
+class _CategoriesApiService implements CategoriesApiService {
+  _CategoriesApiService(
     this._dio, {
     this.baseUrl,
   }) {
@@ -21,20 +21,20 @@ class _ProductsApiService implements ProductsApiService {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<List<ProductModel>>> getProducts() async {
+  Future<HttpResponse<CategoriesModel>> getCategories() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<List<dynamic>>(
-        _setStreamType<HttpResponse<List<ProductModel>>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HttpResponse<CategoriesModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/products',
+              '/categories',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -43,9 +43,7 @@ class _ProductsApiService implements ProductsApiService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
-        .map((dynamic i) => ProductModel.fromJson(i as Map<String, dynamic>))
-        .toList();
+    final value = CategoriesModel.fromJson(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }

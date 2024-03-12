@@ -1,4 +1,5 @@
-import 'package:e_commerce_site/features/home_page/presentation/bloc/product/remote/product_bloc.dart';
+import 'package:e_commerce_site/features/home_page/domain/entities/product.dart';
+import 'package:e_commerce_site/features/home_page/presentation/bloc/product/product_bloc.dart';
 import 'package:e_commerce_site/features/home_page/presentation/pages/clothes_page.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/decorated_text.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/home/app_bar_menu_item.dart';
@@ -103,16 +104,29 @@ class _HomeState extends State<Home> {
 
   Expanded body({required double sidePadding}) {
     return Expanded(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: sidePadding),
-          child: page(),
-        ),
+      child: BlocBuilder<ProductBloc, ProductState>(
+        builder: (context, state) {
+          if (state is ProductsLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is ProductsDone) {
+            return SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: sidePadding),
+                child: page(state.products),
+              ),
+            );
+          } else if (state is ProductsException) {
+            return const SizedBox();
+          }
+          return const SizedBox();
+        },
       ),
     );
   }
 
-  Column page() {
+  Column page(List<ProductEntity> products) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -123,21 +137,8 @@ class _HomeState extends State<Home> {
         const SizedBox(
           height: Spacing.standard * 3,
         ),
-        BlocBuilder<ProductBloc, ProductState>(
-          builder: (context, state) {
-            if (state is ProductsLoading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (state is ProductsDone) {
-              return ClothesPage(
-                products: state.products ?? [],
-              );
-            } else if (state is ProductsException) {
-              return const SizedBox();
-            }
-            return const SizedBox();
-          },
+        ClothesPage(
+          products: products,
         ),
         const SizedBox(
           height: Spacing.standard * 7,

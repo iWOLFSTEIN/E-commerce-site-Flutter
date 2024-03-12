@@ -1,5 +1,5 @@
 import 'package:e_commerce_site/config/theme/app_themes.dart';
-import 'package:e_commerce_site/features/home_page/presentation/bloc/product/remote/product_bloc.dart';
+import 'package:e_commerce_site/features/home_page/presentation/bloc/product/product_bloc.dart';
 import 'package:e_commerce_site/features/home_page/presentation/pages/home.dart';
 import 'package:e_commerce_site/injection_container.dart';
 import 'package:flutter/material.dart';

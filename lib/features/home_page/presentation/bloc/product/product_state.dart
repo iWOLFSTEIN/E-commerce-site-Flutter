@@ -1,13 +1,13 @@
 part of 'product_bloc.dart';
 
 sealed class ProductState extends Equatable {
-  final List<ProductEntity>? products;
+  final List<ProductEntity> products;
   final DioException? exception;
 
-  const ProductState({this.exception, this.products});
+  const ProductState({this.exception, this.products = const []});
 
   @override
-  List<Object> get props => [products!, exception!];
+  List<Object> get props => [products, exception!];
 }
 
 final class ProductsLoading extends ProductState {
