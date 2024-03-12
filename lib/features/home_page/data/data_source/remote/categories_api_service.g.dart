@@ -26,7 +26,7 @@ class _CategoriesApiService implements CategoriesApiService {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
+    final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<CategoriesModel>>(Options(
       method: 'GET',
       headers: _headers,
@@ -34,7 +34,7 @@ class _CategoriesApiService implements CategoriesApiService {
     )
             .compose(
               _dio.options,
-              '/categories',
+              '/products/categories',
               queryParameters: queryParameters,
               data: _data,
             )

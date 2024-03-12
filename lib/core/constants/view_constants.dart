@@ -47,4 +47,6 @@ class ViewConstants {
   static const String sleepWears = "Sleepwears";
   static const String accessories = "Accessories";
   static const String apply = "Apply";
+
+  static const String couldNotLoadThePage = "Couldn't load the page";
 }

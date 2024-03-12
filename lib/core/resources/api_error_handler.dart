@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:e_commerce_site/core/resources/data_state.dart';
+import 'package:e_commerce_site/core/utils/console_log.dart';
+import 'package:e_commerce_site/injection_container.dart';
 import 'package:retrofit/retrofit.dart';
 
 class ApiErrorHandler {
@@ -19,6 +21,9 @@ class ApiErrorHandler {
             requestOptions: httpResponse.response.requestOptions));
       }
     } on DioException catch (e) {
+      sl<ConsoleLog>().error(
+          {'error': e.error, 'type': e.type, 'stackTrace': e.stackTrace});
+
       return DataFailed<T>(e);
     }
   }

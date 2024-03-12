@@ -11,7 +11,8 @@ part 'categories_state.dart';
 class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   final GetCategoriesUseCase _getCategoriesUseCase;
 
-  CategoriesBloc(this._getCategoriesUseCase) : super(CategoriesLoading()) {
+  CategoriesBloc(this._getCategoriesUseCase)
+      : super(const CategoriesLoading()) {
     on<CategoriesEvent>(onGetCategories);
   }
 

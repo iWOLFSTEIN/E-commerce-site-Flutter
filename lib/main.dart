@@ -1,4 +1,5 @@
 import 'package:e_commerce_site/config/theme/app_themes.dart';
+import 'package:e_commerce_site/features/home_page/presentation/bloc/categories/categories_bloc.dart';
 import 'package:e_commerce_site/features/home_page/presentation/bloc/product/product_bloc.dart';
 import 'package:e_commerce_site/features/home_page/presentation/pages/home.dart';
 import 'package:e_commerce_site/injection_container.dart';
@@ -18,7 +19,9 @@ class MainApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<ProductBloc>(
-            create: (context) => sl()..add(const GetProducts()))
+            create: (context) => sl()..add(const GetProducts())),
+        BlocProvider<CategoriesBloc>(
+            create: (context) => sl()..add(const GetCategories())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

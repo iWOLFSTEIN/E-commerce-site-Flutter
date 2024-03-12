@@ -10,7 +10,9 @@ sealed class CategoriesState extends Equatable {
   List<Object> get props => [];
 }
 
-final class CategoriesLoading extends CategoriesState {}
+final class CategoriesLoading extends CategoriesState {
+  const CategoriesLoading();
+}
 
 final class CategoriesDone extends CategoriesState {
   const CategoriesDone(CategoriesEntity? categoriesEntity)

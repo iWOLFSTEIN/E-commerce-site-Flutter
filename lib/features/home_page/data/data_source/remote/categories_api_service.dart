@@ -9,6 +9,6 @@ part 'categories_api_service.g.dart';
 abstract class CategoriesApiService {
   factory CategoriesApiService(Dio dio) = _CategoriesApiService;
 
-  @GET('/categories')
+  @GET('/${ApiEndpoints.categories}')
   Future<HttpResponse<CategoriesModel>> getCategories();
 }

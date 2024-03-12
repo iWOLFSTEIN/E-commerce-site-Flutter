@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class CategoriesEntity extends Equatable {
-  final List<String> categories;
+  final List<dynamic> categories;
 
   const CategoriesEntity({required this.categories});
 

@@ -1,18 +1,16 @@
 import 'package:e_commerce_site/features/home_page/domain/entities/categories.dart';
 
 class CategoriesModel extends CategoriesEntity {
-  const CategoriesModel({List<String>? categories})
+  const CategoriesModel({List<dynamic>? categories})
       : super(categories: categories ?? const []);
 
-  factory CategoriesModel.fromJson(Map<String, dynamic> json) {
+  factory CategoriesModel.fromJson(List<dynamic>? json) {
     return CategoriesModel(
-      categories: json['categories'] ?? [],
+      categories: json ?? [],
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'categories': categories,
-    };
+  List<dynamic> toJson() {
+    return categories;
   }
 }

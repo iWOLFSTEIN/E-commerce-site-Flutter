@@ -1,4 +1,5 @@
 import 'package:e_commerce_site/features/home_page/domain/entities/product.dart';
+import 'package:e_commerce_site/features/home_page/presentation/bloc/categories/categories_bloc.dart';
 import 'package:e_commerce_site/features/home_page/presentation/bloc/product/product_bloc.dart';
 import 'package:e_commerce_site/features/home_page/presentation/pages/clothes_page.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/decorated_text.dart';
@@ -34,12 +35,26 @@ class _HomeState extends State<Home> {
 
   Scaffold desktopLayout() {
     return Scaffold(
-      body: SafeArea(
-          child: Column(
-        children: [
-          appBarDesktop(),
-          body(sidePadding: Spacing.standard * 2),
-        ],
+      body: SafeArea(child: BlocBuilder<CategoriesBloc, CategoriesState>(
+        builder: (context, state) {
+          if (state is CategoriesLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is CategoriesDone) {
+            return Column(
+              children: [
+                appBarDesktop(),
+                body(sidePadding: Spacing.standard * 2),
+              ],
+            );
+          } else if (state is CategoriesException) {
+            return const Center(
+              child: Text(ViewConstants.couldNotLoadThePage),
+            );
+          }
+          return const SizedBox();
+        },
       )),
     );
   }

@@ -11,7 +11,8 @@ class CategoriesRepositoryImpl extends CategoriesRepository {
   @override
   Future<DataState<CategoriesEntity>> getCategories() async {
     return await ApiErrorHandler.onNetworkRequest(fetch: () async {
-      return await _categoriesApiService.getCategories();
+      final res = await _categoriesApiService.getCategories();
+      return res;
     });
   }
 }

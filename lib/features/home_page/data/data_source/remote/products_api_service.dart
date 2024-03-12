@@ -8,6 +8,6 @@ part 'products_api_service.g.dart';
 abstract class ProductsApiService {
   factory ProductsApiService(Dio dio) = _ProductsApiService;
 
-  @GET('/products')
+  @GET('/${ApiEndpoints.products}')
   Future<HttpResponse<List<ProductModel>>> getProducts();
 }
