@@ -10,6 +10,7 @@ class GetCategoriesUseCase implements UseCase {
 
   @override
   Future<DataState<CategoriesEntity>> call({params}) async {
-    return await _categoriesRepository.getCategories();
+    final ds = await _categoriesRepository.getCategories();
+    return ds;
   }
 }

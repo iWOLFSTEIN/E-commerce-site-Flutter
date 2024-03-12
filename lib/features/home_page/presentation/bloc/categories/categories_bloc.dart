@@ -20,7 +20,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
       CategoriesEvent event, Emitter<CategoriesState> emit) async {
     final categoriesState = await _getCategoriesUseCase();
     if (categoriesState is DataSuccess) {
-      emit(CategoriesDone(state.categoriesEntity));
+      emit(CategoriesDone(categoriesState.data));
     } else if (categoriesState is DataFailed) {
       emit(CategoriesException(state.exception));
     }

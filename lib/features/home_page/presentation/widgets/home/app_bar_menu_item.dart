@@ -1,5 +1,6 @@
 import 'package:e_commerce_site/core/constants/app_colors.dart';
 import 'package:e_commerce_site/core/constants/font_size.dart';
+import 'package:e_commerce_site/features/home_page/presentation/widgets/custom_ink_well.dart';
 import 'package:flutter/material.dart';
 
 class AppBarMenuItem extends StatefulWidget {
@@ -16,20 +17,11 @@ class _AppBarMenuItemState extends State<AppBarMenuItem> {
   Color? color;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        InkWell(
-          hoverColor: AppColors.background,
-          highlightColor: AppColors.background,
-          splashColor: AppColors.background,
-          onHover: onHover,
-          onTap: () {},
-          child: Text(widget.title.toUpperCase(),
-              style: TextStyle(fontSize: FontSize.regular, color: color)),
-        ),
-      ],
+    return CustomInkWell(
+      onHover: onHover,
+      onTap: () {},
+      child: Text(widget.title.toUpperCase(),
+          style: TextStyle(fontSize: FontSize.regular, color: color)),
     );
   }
 

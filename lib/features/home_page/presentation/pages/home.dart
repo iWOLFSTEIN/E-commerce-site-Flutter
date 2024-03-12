@@ -44,7 +44,7 @@ class _HomeState extends State<Home> {
           } else if (state is CategoriesDone) {
             return Column(
               children: [
-                appBarDesktop(),
+                appBarDesktop(state.categoriesEntity?.categories),
                 body(sidePadding: Spacing.standard * 2),
               ],
             );
@@ -62,36 +62,55 @@ class _HomeState extends State<Home> {
   Scaffold mobileLayout() {
     return Scaffold(
       key: _scaffoldKey,
-      body: SafeArea(
-          child: Column(
-        children: [
-          appBarMobile(),
-          body(sidePadding: Spacing.standard),
-        ],
+      body: SafeArea(child: BlocBuilder<CategoriesBloc, CategoriesState>(
+        builder: (context, state) {
+          if (state is CategoriesLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is CategoriesDone) {
+            return Column(
+              children: [
+                appBarMobile(),
+                body(sidePadding: Spacing.standard),
+              ],
+            );
+          } else if (state is CategoriesException) {
+            return const Center(
+              child: Text(ViewConstants.couldNotLoadThePage),
+            );
+          }
+          return const SizedBox();
+        },
       )),
-      drawer: Drawer(
-        backgroundColor: AppColors.background,
-        shape: const RoundedRectangleBorder(),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: Spacing.standard, vertical: Spacing.standard),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                ViewConstants.categories,
-                style: TextStyle(
-                    fontSize: FontSize.xlarge, fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(
-                height: Spacing.standard,
-              ),
-              drawerMenuItem(ViewConstants.men),
-              drawerMenuItem(ViewConstants.women),
-              drawerMenuItem(ViewConstants.kids),
-              drawerMenuItem(ViewConstants.brands),
-            ],
-          ),
+      drawer: drawer(),
+    );
+  }
+
+  Drawer drawer() {
+    final categoriesBloc = BlocProvider.of<CategoriesBloc>(context);
+    final categories = categoriesBloc.state.categoriesEntity?.categories ?? [];
+    return Drawer(
+      backgroundColor: AppColors.background,
+      shape: const RoundedRectangleBorder(),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+            horizontal: Spacing.standard, vertical: Spacing.standard),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              ViewConstants.categories,
+              style: TextStyle(
+                  fontSize: FontSize.xlarge, fontWeight: FontWeight.w600),
+            ),
+            const SizedBox(
+              height: Spacing.standard,
+            ),
+            Column(
+                children:
+                    categories.map((item) => drawerMenuItem(item)).toList()),
+          ],
         ),
       ),
     );
@@ -117,27 +136,27 @@ class _HomeState extends State<Home> {
         ));
   }
 
-  Expanded body({required double sidePadding}) {
-    return Expanded(
-      child: BlocBuilder<ProductBloc, ProductState>(
-        builder: (context, state) {
-          if (state is ProductsLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state is ProductsDone) {
-            return SingleChildScrollView(
+  Widget body({required double sidePadding}) {
+    return BlocBuilder<ProductBloc, ProductState>(
+      builder: (context, state) {
+        if (state is ProductsLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (state is ProductsDone) {
+          return Expanded(
+            child: SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: sidePadding),
                 child: page(state.products),
               ),
-            );
-          } else if (state is ProductsException) {
-            return const SizedBox();
-          }
+            ),
+          );
+        } else if (state is ProductsException) {
           return const SizedBox();
-        },
-      ),
+        }
+        return const SizedBox();
+      },
     );
   }
 
@@ -315,33 +334,25 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Padding appBarDesktop() {
+  Padding appBarDesktop(List? categories) {
+    categories = categories ?? [];
+
+    final categorySpacing = Responsive.width(context) * 3;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: Spacing.standard * 2),
       child: Container(
+        width: double.infinity,
         padding: const EdgeInsets.symmetric(vertical: Spacing.large),
         decoration: const BoxDecoration(
             border: Border(bottom: BorderSide(color: AppColors.border))),
-        child: Row(
+        child: Wrap(
+          alignment: WrapAlignment.spaceBetween,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const AppBarMenuItem(title: ViewConstants.men),
-                SizedBox(
-                  width: Responsive.width(context) * 3,
-                ),
-                const AppBarMenuItem(title: ViewConstants.women),
-                SizedBox(
-                  width: Responsive.width(context) * 3,
-                ),
-                const AppBarMenuItem(title: ViewConstants.kids),
-                SizedBox(
-                  width: Responsive.width(context) * 3,
-                ),
-                const AppBarMenuItem(title: ViewConstants.brands)
-              ],
-            ),
+            Wrap(
+                spacing: categorySpacing,
+                children: categories
+                    .map((item) => AppBarMenuItem(title: item))
+                    .toList()),
             const Spacer(
               flex: 6,
             ),
@@ -356,22 +367,14 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Row actionRow({double? width}) {
+  Widget actionRow({double? width}) {
     width = width ?? Responsive.width(context) * 1.5;
-    return Row(
+    return Wrap(
+      spacing: width,
       children: [
         appBarIcon(Icons.search_outlined),
-        SizedBox(
-          width: width,
-        ),
         appBarIcon(Icons.person_outlined),
-        SizedBox(
-          width: width,
-        ),
         appBarIcon(Icons.favorite_outline_outlined),
-        SizedBox(
-          width: width,
-        ),
         appBarIcon(Icons.shopping_bag_outlined),
       ],
     );
