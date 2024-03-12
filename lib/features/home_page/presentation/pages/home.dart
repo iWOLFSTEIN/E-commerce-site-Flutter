@@ -130,10 +130,10 @@ class _HomeState extends State<Home> {
                 child: CircularProgressIndicator(),
               );
             } else if (state is ProductsDone) {
-              print(state.products);
-              return const ClothesPage();
+              return ClothesPage(
+                products: state.products ?? [],
+              );
             } else if (state is ProductsException) {
-              print(state.exception?.message);
               return const SizedBox();
             }
             return const SizedBox();

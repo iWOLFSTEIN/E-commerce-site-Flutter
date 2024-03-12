@@ -1,3 +1,4 @@
+import 'package:e_commerce_site/features/home_page/domain/entities/product.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/custom_ink_well.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/decorated_text.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/pagination_controls.dart';
@@ -12,7 +13,9 @@ import 'package:flutter/material.dart';
 import 'package:popover/popover.dart';
 
 class ClothesPage extends StatefulWidget {
-  const ClothesPage({super.key});
+  const ClothesPage({super.key, this.products = const []});
+
+  final List<ProductEntity> products;
 
   @override
   State<ClothesPage> createState() => _ClothesPageState();
@@ -75,14 +78,13 @@ class _ClothesPageState extends State<ClothesPage> {
       alignment: Alignment.center,
       child: Wrap(
         children: [
-          for (int i = 0; i < 18; i++)
-            shoppingItem(isHighlight: i == 5 ? true : false)
+          for (ProductEntity product in widget.products) shoppingItem(product)
         ],
       ),
     );
   }
 
-  Padding shoppingItem({isHighlight = false}) {
+  Padding shoppingItem(ProductEntity product, {isHighlight = false}) {
     return Padding(
       padding: const EdgeInsets.only(
           right: Spacing.standard,
@@ -99,7 +101,7 @@ class _ClothesPageState extends State<ClothesPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Image.network(
-                'https://d2z0lqci37nukm.cloudfront.net/media/catalog/product/cache/59d1d247a0855e7654a8594881fa0c03/g/r/grey-herringbone-button-down-formal-shirt_1_7vxtlq5kxsuv6uur.jpg',
+                product.image,
                 height: isHighlight ? 528 : 328,
                 width: isHighlight ? 450 : 250,
                 fit: BoxFit.cover,
@@ -110,11 +112,13 @@ class _ClothesPageState extends State<ClothesPage> {
               SizedBox(
                 height: 60,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Mens White Dress Shirt with Full Sleeves',
+                      product.title,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
                       style: TextStyle(
                           fontSize: isHighlight
                               ? FontSize.medium * 1.5
@@ -122,12 +126,12 @@ class _ClothesPageState extends State<ClothesPage> {
                           fontWeight: FontWeight.w500),
                     ),
                     Text(
-                      '1000\$',
+                      '${product.price}\$',
                       style: TextStyle(
                           color: AppColors.secondary,
                           fontSize: isHighlight
                               ? FontSize.regular * 1.5
-                              : FontSize.regular,
+                              : FontSize.medium,
                           fontWeight: FontWeight.w500),
                     ),
                   ],

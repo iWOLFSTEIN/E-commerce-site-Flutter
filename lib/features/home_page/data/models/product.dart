@@ -2,12 +2,12 @@ import 'package:e_commerce_site/features/home_page/domain/entities/product.dart'
 
 class ProductModel extends ProductEntity {
   const ProductModel(
-      {int? id,
-      String? title,
-      double? price,
-      String? category,
-      String? description,
-      String? image})
+      {required int id,
+      required String title,
+      required double price,
+      required String category,
+      required String description,
+      required String image})
       : super(
             id: id,
             title: title,

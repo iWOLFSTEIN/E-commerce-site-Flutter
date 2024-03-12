@@ -17,13 +17,9 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
 
   void onGetProducts(GetProducts event, Emitter<ProductState> emit) async {
     final dataState = await _getProductsUseCase();
-    print(dataState);
     if (dataState is DataSuccess) {
-      print(dataState.data);
       emit(ProductsDone(dataState.data ?? []));
     } else {
-      print('printing error');
-      print(dataState.dioException);
       emit(ProductsException(dataState.dioException!));
     }
   }
