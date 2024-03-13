@@ -18,7 +18,7 @@ class _SelectedItemsThreadState extends State<SelectedItemsThread> {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> thread = [ViewConstants.men, ViewConstants.clothes];
+    final List<String> thread = [ViewConstants.allProducts];
 
     if (thread.isEmpty) return Container();
 

@@ -345,22 +345,21 @@ class _HomeState extends State<Home> {
         padding: const EdgeInsets.symmetric(vertical: Spacing.large),
         decoration: const BoxDecoration(
             border: Border(bottom: BorderSide(color: AppColors.border))),
-        child: Wrap(
-          alignment: WrapAlignment.spaceBetween,
+        child: Row(
           children: [
-            Wrap(
-                spacing: categorySpacing,
-                children: categories
-                    .map((item) => AppBarMenuItem(title: item))
-                    .toList()),
-            const Spacer(
+            Expanded(
               flex: 6,
+              child: Wrap(
+                  spacing: categorySpacing,
+                  children: categories
+                      .map((item) => AppBarMenuItem(title: item))
+                      .toList()),
             ),
             appTitle(),
-            const Spacer(
-              flex: 7,
-            ),
-            actionRow()
+            Expanded(
+                flex: 5,
+                child:
+                    Align(alignment: Alignment.centerRight, child: actionRow()))
           ],
         ),
       ),

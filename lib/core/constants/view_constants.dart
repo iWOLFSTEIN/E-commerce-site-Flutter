@@ -49,4 +49,5 @@ class ViewConstants {
   static const String apply = "Apply";
 
   static const String couldNotLoadThePage = "Couldn't load the page";
+  static const String allProducts = "All Products";
 }
