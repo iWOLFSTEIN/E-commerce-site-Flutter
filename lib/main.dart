@@ -1,8 +1,14 @@
-import 'package:e_commerce_site/presentation/pages/home.dart';
-import 'package:e_commerce_site/shared/constants/app_colors.dart';
+import 'package:e_commerce_site/config/theme/app_themes.dart';
+import 'package:e_commerce_site/features/home_page/presentation/bloc/categories/categories_bloc.dart';
+import 'package:e_commerce_site/features/home_page/presentation/bloc/cubits/selected_items_thread/selected_items_thread_cubit_cubit.dart';
+import 'package:e_commerce_site/features/home_page/presentation/bloc/product/product_bloc.dart';
+import 'package:e_commerce_site/features/home_page/presentation/pages/home.dart';
+import 'package:e_commerce_site/injection_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+void main() async {
+  await initializeDependencies();
   runApp(const MainApp());
 }
 
@@ -11,13 +17,19 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: AppColors.colorSchemeLight,
-        useMaterial3: true,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ProductBloc>(
+            create: (context) => sl()..add(const GetProducts())),
+        BlocProvider<CategoriesBloc>(
+            create: (context) => sl()..add(const GetCategories())),
+        BlocProvider<SelectedItemsThreadCubit>(create: (context) => sl()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: AppThemes.theme(),
+        home: const Home(),
       ),
-      home: const Home(),
     );
   }
 }
