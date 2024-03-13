@@ -8,9 +8,9 @@ import 'package:e_commerce_site/features/home_page/domain/repository/categories_
 import 'package:e_commerce_site/features/home_page/domain/repository/product_repository.dart';
 import 'package:e_commerce_site/features/home_page/domain/usecase/get_categories_use_case.dart';
 import 'package:e_commerce_site/features/home_page/domain/usecase/get_products.dart';
-import 'package:e_commerce_site/features/home_page/presentation/bloc/categories/categories_bloc.dart';
-import 'package:e_commerce_site/features/home_page/presentation/bloc/cubits/selected_items_thread/selected_items_thread_cubit_cubit.dart';
-import 'package:e_commerce_site/features/home_page/presentation/bloc/product/product_bloc.dart';
+import 'package:e_commerce_site/features/home_page/presentation/bloc/blocs/categories/categories_bloc.dart';
+import 'package:e_commerce_site/features/home_page/presentation/bloc/blocs/product/product_bloc.dart';
+import 'package:e_commerce_site/features/home_page/presentation/bloc/cubits/selected_items_thread/selected_items_thread_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/web.dart';
 

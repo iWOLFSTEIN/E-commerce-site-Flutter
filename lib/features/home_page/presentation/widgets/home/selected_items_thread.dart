@@ -1,8 +1,9 @@
 import 'package:e_commerce_site/core/constants/app_colors.dart';
 import 'package:e_commerce_site/core/constants/font_size.dart';
-import 'package:e_commerce_site/core/constants/view_constants.dart';
 import 'package:e_commerce_site/core/utils/responsive.dart';
+import 'package:e_commerce_site/features/home_page/presentation/bloc/cubits/selected_items_thread/selected_items_thread_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SelectedItemsThread extends StatefulWidget {
   const SelectedItemsThread({
@@ -18,23 +19,25 @@ class _SelectedItemsThreadState extends State<SelectedItemsThread> {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> thread = [ViewConstants.allProducts];
+    return BlocBuilder<SelectedItemsThreadCubit, List>(
+      builder: (context, thread) {
+        if (thread.isEmpty) return Container();
+        return Row(
+          children: thread.map((text) {
+            bool isNotLastItem = text != thread.last;
+            bool isSecondLastItem = false;
+            try {
+              isSecondLastItem = text == thread[thread.length - 2];
+            } catch (e) {
+              null;
+            }
 
-    if (thread.isEmpty) return Container();
-
-    return Row(
-      children: thread.map((text) {
-        bool isNotLastItem = text != thread.last;
-        bool isSecondLastItem = false;
-        try {
-          isSecondLastItem = text == thread[thread.length - 2];
-        } catch (e) {
-          null;
-        }
-
-        return threadItem(text,
-            isNotLastItem: isNotLastItem, isSecondLastItem: isSecondLastItem);
-      }).toList(),
+            return threadItem(text,
+                isNotLastItem: isNotLastItem,
+                isSecondLastItem: isSecondLastItem);
+          }).toList(),
+        );
+      },
     );
   }
 

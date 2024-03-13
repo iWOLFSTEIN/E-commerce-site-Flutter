@@ -1,6 +1,6 @@
 import 'package:e_commerce_site/features/home_page/domain/entities/product.dart';
-import 'package:e_commerce_site/features/home_page/presentation/bloc/categories/categories_bloc.dart';
-import 'package:e_commerce_site/features/home_page/presentation/bloc/product/product_bloc.dart';
+import 'package:e_commerce_site/features/home_page/presentation/bloc/blocs/categories/categories_bloc.dart';
+import 'package:e_commerce_site/features/home_page/presentation/bloc/blocs/product/product_bloc.dart';
 import 'package:e_commerce_site/features/home_page/presentation/pages/clothes_page.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/decorated_text.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/home/app_bar_menu_item.dart';
