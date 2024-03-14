@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
 import 'package:e_commerce_site/core/resources/data_state.dart';
 import 'package:e_commerce_site/features/home_page/domain/entities/product.dart';
 import 'package:e_commerce_site/features/home_page/domain/usecase/get_products.dart';
@@ -20,7 +19,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     if (dataState is DataSuccess) {
       emit(ProductsDone(dataState.data ?? []));
     } else {
-      emit(ProductsException(dataState.dioException!));
+      emit(ProductsException(dataState.exception!));
     }
   }
 }

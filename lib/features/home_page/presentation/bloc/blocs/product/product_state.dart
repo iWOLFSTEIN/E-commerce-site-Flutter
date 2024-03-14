@@ -2,7 +2,7 @@ part of 'product_bloc.dart';
 
 sealed class ProductState extends Equatable {
   final List<ProductEntity> products;
-  final DioException? exception;
+  final Exception? exception;
 
   const ProductState({this.exception, this.products = const []});
 
@@ -19,5 +19,5 @@ final class ProductsDone extends ProductState {
 }
 
 final class ProductsException extends ProductState {
-  const ProductsException(DioException exception) : super(exception: exception);
+  const ProductsException(Exception exception) : super(exception: exception);
 }

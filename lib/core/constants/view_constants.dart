@@ -50,4 +50,8 @@ class ViewConstants {
 
   static const String couldNotLoadThePage = "Couldn't load the page";
   static const String allProducts = "All Products";
+  static const String noInternet = "No internet";
+  static const String cantConnectToInternet =
+      "Cannot connect to internet, please check your internet connection";
+  static const String anErrorOccured = "An error occurred";
 }
