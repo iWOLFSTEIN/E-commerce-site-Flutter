@@ -1,6 +1,8 @@
 import 'package:e_commerce_site/features/home_page/domain/entities/product.dart';
-import 'package:e_commerce_site/features/home_page/presentation/widgets/custom_ink_well.dart';
+import 'package:e_commerce_site/features/home_page/presentation/pages/item_detail_page.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/decorated_text.dart';
+import 'package:e_commerce_site/features/home_page/presentation/widgets/items_page/filter_list_items.dart';
+import 'package:e_commerce_site/features/home_page/presentation/widgets/items_page/items_page_heading.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/pagination_controls.dart';
 import 'package:e_commerce_site/core/constants/app_assets.dart';
 import 'package:e_commerce_site/core/constants/app_colors.dart';
@@ -12,16 +14,16 @@ import 'package:e_commerce_site/core/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:popover/popover.dart';
 
-class ClothesPage extends StatefulWidget {
-  const ClothesPage({super.key, this.products = const []});
+class ItemsPage extends StatefulWidget {
+  const ItemsPage({super.key, this.products = const []});
 
   final List<ProductEntity> products;
 
   @override
-  State<ClothesPage> createState() => _ClothesPageState();
+  State<ItemsPage> createState() => _ItemsPageState();
 }
 
-class _ClothesPageState extends State<ClothesPage> {
+class _ItemsPageState extends State<ItemsPage> {
   int currentPageNumber = 1;
   int totalPages = 10;
 
@@ -31,7 +33,7 @@ class _ClothesPageState extends State<ClothesPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        pageHeading(),
+        const ItemsPageHeading(),
         const SizedBox(
           height: Spacing.standard * 1.75,
         ),
@@ -93,7 +95,13 @@ class _ClothesPageState extends State<ClothesPage> {
           top: Spacing.standard),
       child: InkWell(
         hoverColor: AppColors.background,
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      ItemDetailPage(productEntity: product)));
+        },
         child: SizedBox(
           height: isHighlight ? 600 : 400,
           width: isHighlight ? 450 : 250,
@@ -231,7 +239,7 @@ class _ClothesPageState extends State<ClothesPage> {
         onTap: () {
           showPopover(
             context: context,
-            bodyBuilder: (context) => const ListItems(),
+            bodyBuilder: (context) => const FilterListItems(),
             onPop: () {},
             direction: PopoverDirection.bottom,
             width: 400,
@@ -288,199 +296,6 @@ class _ClothesPageState extends State<ClothesPage> {
           ),
         ),
       ],
-    );
-  }
-
-  Wrap pageHeading() {
-    return Wrap(
-      children: [
-        Text(
-          "Men's Clothes".toUpperCase(),
-          style: const TextStyle(fontSize: FontSize.large * 4, height: 1),
-        ),
-        SizedBox(
-          width: Responsive.width(context) * 0.75,
-        ),
-        Text(
-          "150 ${ViewConstants.results}".toUpperCase(),
-          style: const TextStyle(fontSize: FontSize.large),
-        ),
-      ],
-    );
-  }
-}
-
-class ListItems extends StatefulWidget {
-  const ListItems({Key? key}) : super(key: key);
-
-  @override
-  State<ListItems> createState() => _ListItemsState();
-}
-
-class _ListItemsState extends State<ListItems> {
-  String selectedCategoryValue = '';
-  String selectedSizeValue = '';
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-          vertical: Spacing.standard * 2, horizontal: Spacing.standard),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              title(text: ViewConstants.priceRange),
-              const SizedBox(
-                height: Spacing.normal,
-              ),
-              Row(
-                children: [
-                  textField(
-                      hintText: ViewConstants.min,
-                      initialValue: ViewConstants.minInitialValue),
-                  const SizedBox(
-                    width: Spacing.normal,
-                  ),
-                  textField(
-                      hintText: ViewConstants.max,
-                      initialValue: ViewConstants.maxInitialValue),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: Spacing.standard,
-          ),
-          title(text: ViewConstants.category),
-          const SizedBox(
-            height: Spacing.normal,
-          ),
-          SizedBox(
-            width: 368,
-            child: Wrap(
-              spacing: Spacing.normal,
-              runSpacing: Spacing.normal,
-              children: [
-                categoryItem(ViewConstants.jackets),
-                categoryItem(ViewConstants.shirts),
-                categoryItem(ViewConstants.jeans),
-                categoryItem(ViewConstants.suits),
-                categoryItem(ViewConstants.sleepWears),
-                categoryItem(ViewConstants.accessories),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: Spacing.standard,
-          ),
-          title(text: ViewConstants.size),
-          const SizedBox(
-            height: Spacing.normal,
-          ),
-          SizedBox(
-            width: 368,
-            child: Wrap(
-              spacing: Spacing.normal,
-              runSpacing: Spacing.normal,
-              children: [
-                categoryItem(ViewConstants.small),
-                categoryItem(ViewConstants.medium),
-                categoryItem(ViewConstants.large),
-                categoryItem(ViewConstants.xlarge),
-              ],
-            ),
-          ),
-          const Expanded(child: SizedBox()),
-          Container(
-            decoration: const BoxDecoration(
-                color: AppColors.primary,
-                borderRadius: BorderRadius.all(Radius.circular(12))),
-            height: 40,
-            width: double.infinity,
-            child: TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text(
-                  ViewConstants.apply.toUpperCase(),
-                  style: const TextStyle(color: AppColors.white),
-                )),
-          )
-        ],
-      ),
-    );
-  }
-
-  CustomInkWell categoryItem(String text) {
-    bool isSelected = text == selectedCategoryValue;
-    return CustomInkWell(
-        onTap: () {
-          selectedCategoryValue = text;
-          setState(() {});
-        },
-        child: selectableItem(text, isSelected: isSelected));
-  }
-
-  CustomInkWell sizeItem(String text) {
-    bool isSelected = text == selectedSizeValue;
-    return CustomInkWell(
-        onTap: () {
-          selectedSizeValue = text;
-          setState(() {});
-        },
-        child: selectableItem(text, isSelected: isSelected));
-  }
-
-  Row selectableItem(String text, {bool isSelected = false}) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(
-              vertical: Spacing.small, horizontal: Spacing.medium),
-          decoration: BoxDecoration(
-              border: Border.all(
-                color: AppColors.border,
-              ),
-              borderRadius: const BorderRadius.all(Radius.circular(10))),
-          child: Center(
-            child: Text(
-              text.toUpperCase(),
-              style: const TextStyle(
-                  color: AppColors.secondary, fontSize: FontSize.regular),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Text title({required String text}) {
-    return Text(
-      text.toUpperCase(),
-      style: const TextStyle(fontSize: FontSize.medium),
-    );
-  }
-
-  Container textField({String? hintText, String? initialValue}) {
-    return Container(
-      width: 360 / 2,
-      color: AppColors.border,
-      child: TextFormField(
-        initialValue: initialValue,
-        keyboardType: TextInputType.number,
-        decoration: InputDecoration(
-            border: InputBorder.none,
-            focusedBorder: InputBorder.none,
-            enabledBorder: InputBorder.none,
-            hintText: hintText?.toUpperCase(),
-            hintStyle: const TextStyle(fontSize: FontSize.medium),
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: Spacing.standard)),
-      ),
     );
   }
 }
