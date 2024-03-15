@@ -1,6 +1,7 @@
 import 'package:e_commerce_site/features/home_page/domain/entities/product.dart';
 import 'package:e_commerce_site/features/home_page/presentation/bloc/blocs/categories/categories_bloc.dart';
 import 'package:e_commerce_site/features/home_page/presentation/bloc/blocs/product/product_bloc.dart';
+import 'package:e_commerce_site/features/home_page/presentation/pages/item_detail_page.dart';
 import 'package:e_commerce_site/features/home_page/presentation/pages/items_page.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/decorated_text.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/home/app_bar_menu_item.dart';
@@ -17,7 +18,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  const Home({super.key, required this.id});
+  final int id;
 
   @override
   State<Home> createState() => _HomeState();
@@ -72,35 +74,6 @@ class _HomeState extends State<Home> {
             return Column(
               children: [
                 appBarMobile(),
-                body(sidePadding: Spacing.standard),
-              ],
-            );
-          } else if (state is CategoriesException) {
-            return const Center(
-              child: Text(ViewConstants.couldNotLoadThePage),
-            );
-          }
-          return const SizedBox();
-        },
-      )),
-      drawer: drawer(),
-    );
-  }
-
-  Widget layout({required Widget Function(List?) appBar}) {
-    return Scaffold(
-      key: _scaffoldKey,
-      body: SafeArea(child: BlocBuilder<CategoriesBloc, CategoriesState>(
-        builder: (context, state) {
-          if (state is CategoriesLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state is CategoriesDone) {
-            return Column(
-              children: [
-                // appBar(),
-                // appBarMobile(),
                 body(sidePadding: Spacing.standard),
               ],
             );
@@ -200,9 +173,16 @@ class _HomeState extends State<Home> {
         const SizedBox(
           height: Spacing.standard * 3,
         ),
-        ItemsPage(
-          products: products,
-        ),
+        // Column(
+        //   mainAxisSize: MainAxisSize.min,
+        //   children: [
+        // widget.child,
+        //   ],
+        // ),
+        if (widget.id == 0)
+          const ItemsPage()
+        else if (widget.id == 1)
+          const ItemDetailPage(),
         const SizedBox(
           height: Spacing.standard * 7,
         ),

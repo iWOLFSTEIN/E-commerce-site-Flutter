@@ -1,5 +1,5 @@
 import 'package:e_commerce_site/features/home_page/domain/entities/product.dart';
-import 'package:e_commerce_site/features/home_page/presentation/pages/item_detail_page.dart';
+import 'package:e_commerce_site/features/home_page/presentation/bloc/blocs/product/product_bloc.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/decorated_text.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/items_page/filter_list_items.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/items_page/items_page_heading.dart';
@@ -12,12 +12,14 @@ import 'package:e_commerce_site/core/constants/spacing.dart';
 import 'package:e_commerce_site/core/constants/view_constants.dart';
 import 'package:e_commerce_site/core/utils/responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:popover/popover.dart';
 
 class ItemsPage extends StatefulWidget {
-  const ItemsPage({super.key, this.products = const []});
-
-  final List<ProductEntity> products;
+  const ItemsPage({
+    super.key,
+  });
 
   @override
   State<ItemsPage> createState() => _ItemsPageState();
@@ -29,58 +31,63 @@ class _ItemsPageState extends State<ItemsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const ItemsPageHeading(),
-        const SizedBox(
-          height: Spacing.standard * 1.75,
-        ),
-        filtersTile(context),
-        const SizedBox(
-          height: Spacing.normal,
-        ),
-        const Divider(
-          color: AppColors.border,
-        ),
-        allShoppingItems(),
-        const SizedBox(
-          height: Spacing.standard * 1.5,
-        ),
-        const DecoratedText(text: ViewConstants.showMore),
-        const SizedBox(
-          height: Spacing.standard * 3,
-        ),
-        PaginationControls(
-            currentPage: currentPageNumber,
-            totalPages: totalPages,
-            onNextPressed: () {
-              if (currentPageNumber < totalPages) {
-                currentPageNumber++;
-                setState(() {});
-              }
-            },
-            onPrevPressed: () {
-              if (currentPageNumber > 1) {
-                currentPageNumber--;
-                setState(() {});
-              }
-            },
-            onPageSelected: (pageNumber) {
-              currentPageNumber = pageNumber;
-              setState(() {});
-            })
-      ],
+    return BlocBuilder<ProductBloc, ProductState>(
+      builder: (context, state) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          // mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const ItemsPageHeading(),
+            const SizedBox(
+              height: Spacing.standard * 1.75,
+            ),
+            filtersTile(context),
+            const SizedBox(
+              height: Spacing.normal,
+            ),
+            const Divider(
+              color: AppColors.border,
+            ),
+            allShoppingItems(state.products),
+            const SizedBox(
+              height: Spacing.standard * 1.5,
+            ),
+            const DecoratedText(text: ViewConstants.showMore),
+            const SizedBox(
+              height: Spacing.standard * 3,
+            ),
+            PaginationControls(
+                currentPage: currentPageNumber,
+                totalPages: totalPages,
+                onNextPressed: () {
+                  if (currentPageNumber < totalPages) {
+                    currentPageNumber++;
+                    setState(() {});
+                  }
+                },
+                onPrevPressed: () {
+                  if (currentPageNumber > 1) {
+                    currentPageNumber--;
+                    setState(() {});
+                  }
+                },
+                onPageSelected: (pageNumber) {
+                  currentPageNumber = pageNumber;
+                  setState(() {});
+                })
+          ],
+        );
+      },
     );
   }
 
-  Container allShoppingItems() {
+  Container allShoppingItems(products) {
     return Container(
       alignment: Alignment.center,
       child: Wrap(
         children: [
-          for (ProductEntity product in widget.products) shoppingItem(product)
+          for (ProductEntity product in products) shoppingItem(product)
         ],
       ),
     );
@@ -96,11 +103,7 @@ class _ItemsPageState extends State<ItemsPage> {
       child: InkWell(
         hoverColor: AppColors.background,
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      ItemDetailPage(productEntity: product)));
+          context.goNamed('itemDetailPage');
         },
         child: SizedBox(
           height: isHighlight ? 600 : 400,

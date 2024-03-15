@@ -1,28 +1,29 @@
-import 'package:e_commerce_site/features/home_page/domain/entities/product.dart';
 import 'package:flutter/material.dart';
 
 class ItemDetailPage extends StatelessWidget {
-  final ProductEntity productEntity;
-
-  const ItemDetailPage({super.key, required this.productEntity});
+  const ItemDetailPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-          child: Column(
+    return SizedBox(
+      height: 100,
+      width: 100,
+      child: Column(
         children: [
           Row(
             children: [
               Expanded(
                   child: Column(
-                children: [Image.network(productEntity.image)],
+                children: [
+                  Image.network(
+                      'https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_square.jpg')
+                ],
               )),
               const Expanded(child: SizedBox())
             ],
           ),
         ],
-      )),
+      ),
     );
   }
 }
