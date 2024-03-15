@@ -26,4 +26,6 @@ class AppColors {
   static const Color highlight = Color(0xFFEDCF5D);
   static const Color border = Color(0xFFE1E3E5);
   static const Color surface = Color(0xFFE3E3E3);
+
+  static const Color placeholder = Color(0xFFF4F4F4);
 }

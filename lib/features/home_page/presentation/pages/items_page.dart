@@ -1,5 +1,6 @@
 import 'package:e_commerce_site/features/home_page/domain/entities/product.dart';
 import 'package:e_commerce_site/features/home_page/presentation/bloc/blocs/product/product_bloc.dart';
+import 'package:e_commerce_site/features/home_page/presentation/bloc/cubits/selected_item/selected_item.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/decorated_text.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/items_page/filter_list_items.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/items_page/items_page_heading.dart';
@@ -35,7 +36,6 @@ class _ItemsPageState extends State<ItemsPage> {
       builder: (context, state) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          // mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
             const ItemsPageHeading(),
@@ -103,6 +103,7 @@ class _ItemsPageState extends State<ItemsPage> {
       child: InkWell(
         hoverColor: AppColors.background,
         onTap: () {
+          context.read<SelectedItemCubit>().setProduct(product);
           context.goNamed('itemDetailPage');
         },
         child: SizedBox(

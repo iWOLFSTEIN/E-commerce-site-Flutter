@@ -2,7 +2,7 @@ import 'package:e_commerce_site/core/constants/font_size.dart';
 import 'package:e_commerce_site/core/constants/view_constants.dart';
 import 'package:e_commerce_site/core/utils/responsive.dart';
 import 'package:e_commerce_site/features/home_page/presentation/bloc/blocs/product/product_bloc.dart';
-import 'package:e_commerce_site/features/home_page/presentation/bloc/cubits/selected_items_thread/selected_items_thread_cubit.dart';
+import 'package:e_commerce_site/features/home_page/presentation/bloc/cubits/selected_items_thread.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

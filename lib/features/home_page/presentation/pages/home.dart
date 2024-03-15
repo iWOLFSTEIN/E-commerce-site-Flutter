@@ -1,8 +1,6 @@
 import 'package:e_commerce_site/features/home_page/domain/entities/product.dart';
 import 'package:e_commerce_site/features/home_page/presentation/bloc/blocs/categories/categories_bloc.dart';
 import 'package:e_commerce_site/features/home_page/presentation/bloc/blocs/product/product_bloc.dart';
-import 'package:e_commerce_site/features/home_page/presentation/pages/item_detail_page.dart';
-import 'package:e_commerce_site/features/home_page/presentation/pages/items_page.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/decorated_text.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/home/app_bar_menu_item.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/home/selected_items_thread.dart';
@@ -18,8 +16,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key, required this.id});
-  final int id;
+  const Home({super.key, required this.child});
+  final Widget child;
 
   @override
   State<Home> createState() => _HomeState();
@@ -173,16 +171,7 @@ class _HomeState extends State<Home> {
         const SizedBox(
           height: Spacing.standard * 3,
         ),
-        // Column(
-        //   mainAxisSize: MainAxisSize.min,
-        //   children: [
-        // widget.child,
-        //   ],
-        // ),
-        if (widget.id == 0)
-          const ItemsPage()
-        else if (widget.id == 1)
-          const ItemDetailPage(),
+        widget.child,
         const SizedBox(
           height: Spacing.standard * 7,
         ),
