@@ -1,7 +1,10 @@
 import 'package:e_commerce_site/core/constants/app_colors.dart';
 import 'package:e_commerce_site/core/constants/font_size.dart';
 import 'package:e_commerce_site/core/constants/spacing.dart';
+import 'package:e_commerce_site/core/constants/view_constants.dart';
 import 'package:e_commerce_site/features/home_page/presentation/bloc/cubits/selected_item/selected_item.dart';
+import 'package:e_commerce_site/features/home_page/presentation/widgets/category_with_selectable_items.dart';
+import 'package:e_commerce_site/features/home_page/presentation/widgets/item_detail_page/colors_selection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,6 +26,7 @@ class ItemDetailPage extends StatelessWidget {
         dynamic rate = state.product?.rating.rate ?? 0.0;
         final rating = rate.round();
         final ratingCount = state.product?.rating.count ?? 0;
+        final price = state.product?.price;
 
         return SizedBox(
           width: double.infinity,
@@ -44,34 +48,41 @@ class ItemDetailPage extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            title.toUpperCase(),
-                            style: const TextStyle(fontSize: FontSize.heading),
-                          ),
+                          productTitle(title),
                           const SizedBox(
                             height: Spacing.regular,
                           ),
-                          // Row(
-                          //   children: [
-                          Wrap(
-                            spacing: Spacing.small,
-                            children: [
-                              for (int i = 1; i <= 5; i++)
-                                Icon(
-                                  i <= rating ? Icons.star : Icons.star_border,
-                                  color: i <= rating
-                                      ? AppColors.highlight
-                                      : AppColors.border,
-                                  size: 18,
-                                )
+                          productRating(rating, ratingCount),
+                          const SizedBox(
+                            height: Spacing.standard,
+                          ),
+                          productPrice(price),
+                          const SizedBox(
+                            height: Spacing.standard,
+                          ),
+                          ColorsSelection(
+                            colors: [
+                              Colors.red.withOpacity(0.4),
+                              Colors.blue.withOpacity(0.4),
+                              Colors.green.withOpacity(0.4)
+                            ],
+                            selectedColor: Colors.red.withOpacity(0.4),
+                          ),
+                          const SizedBox(
+                            height: Spacing.standard,
+                          ),
+                          CategoryWithSelectableItems(
+                            title: ViewConstants.size,
+                            onSelected: (selectedItemsList) {
+                              print(selectedItemsList);
+                            },
+                            items: const [
+                              ViewConstants.small,
+                              ViewConstants.medium,
+                              ViewConstants.large,
+                              ViewConstants.xlarge,
                             ],
                           ),
-                          //     const SizedBox(
-                          //       width: double.infinity,
-                          //     ),
-                          //     Text('$ratingCount ')
-                          //   ],
-                          // )
                         ],
                       )
                     ],
@@ -82,6 +93,47 @@ class ItemDetailPage extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  Text productPrice(double? price) {
+    return Text(
+      '\$$price',
+      style: const TextStyle(
+          fontSize: FontSize.xxlarge * 2.25, fontWeight: FontWeight.w500),
+    );
+  }
+
+  Row productRating(rating, int ratingCount) {
+    return Row(
+      children: [
+        Wrap(
+          spacing: Spacing.xsmall,
+          children: [
+            for (int i = 1; i <= 5; i++)
+              Icon(
+                i <= rating ? Icons.star : Icons.star_border,
+                color: i <= rating ? AppColors.highlight : AppColors.border,
+                size: 17,
+              )
+          ],
+        ),
+        const SizedBox(
+          width: Spacing.medium,
+        ),
+        Text(
+          '$ratingCount ${ViewConstants.reviews.toLowerCase()}',
+          style: const TextStyle(
+              color: AppColors.secondary, fontSize: FontSize.regular),
+        )
+      ],
+    );
+  }
+
+  Text productTitle(String title) {
+    return Text(
+      title.toUpperCase(),
+      style: const TextStyle(fontSize: FontSize.heading),
     );
   }
 

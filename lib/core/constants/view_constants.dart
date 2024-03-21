@@ -54,4 +54,6 @@ class ViewConstants {
   static const String cantConnectToInternet =
       "Cannot connect to internet, please check your internet connection";
   static const String anErrorOccured = "An error occurred";
+  static const String reviews = "Reviews";
+  static const String colors = "Colors";
 }

@@ -2,7 +2,8 @@ import 'package:e_commerce_site/core/constants/app_colors.dart';
 import 'package:e_commerce_site/core/constants/font_size.dart';
 import 'package:e_commerce_site/core/constants/spacing.dart';
 import 'package:e_commerce_site/core/constants/view_constants.dart';
-import 'package:e_commerce_site/features/home_page/presentation/widgets/custom_ink_well.dart';
+import 'package:e_commerce_site/features/home_page/presentation/widgets/category_title.dart';
+import 'package:e_commerce_site/features/home_page/presentation/widgets/category_with_selectable_items.dart';
 import 'package:flutter/material.dart';
 
 class FilterListItems extends StatefulWidget {
@@ -27,7 +28,7 @@ class _FilterListItemsState extends State<FilterListItems> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              title(text: ViewConstants.priceRange),
+              const CategoryTitle(text: ViewConstants.priceRange),
               const SizedBox(
                 height: Spacing.normal,
               ),
@@ -49,44 +50,38 @@ class _FilterListItemsState extends State<FilterListItems> {
           const SizedBox(
             height: Spacing.standard,
           ),
-          title(text: ViewConstants.category),
-          const SizedBox(
-            height: Spacing.normal,
-          ),
-          SizedBox(
+          CategoryWithSelectableItems(
+            title: ViewConstants.category,
             width: 368,
-            child: Wrap(
-              spacing: Spacing.normal,
-              runSpacing: Spacing.normal,
-              children: [
-                categoryItem(ViewConstants.jackets),
-                categoryItem(ViewConstants.shirts),
-                categoryItem(ViewConstants.jeans),
-                categoryItem(ViewConstants.suits),
-                categoryItem(ViewConstants.sleepWears),
-                categoryItem(ViewConstants.accessories),
-              ],
-            ),
+            canSelectMany: true,
+            onSelected: (selectedItemsList) {},
+            items: const [
+              ViewConstants.jackets,
+              ViewConstants.shirts,
+              ViewConstants.jeans,
+              ViewConstants.suits,
+              ViewConstants.sleepWears,
+              ViewConstants.accessories
+            ],
           ),
           const SizedBox(
             height: Spacing.standard,
           ),
-          title(text: ViewConstants.size),
+          const CategoryTitle(text: ViewConstants.size),
           const SizedBox(
             height: Spacing.normal,
           ),
-          SizedBox(
+          CategoryWithSelectableItems(
+            title: ViewConstants.size,
             width: 368,
-            child: Wrap(
-              spacing: Spacing.normal,
-              runSpacing: Spacing.normal,
-              children: [
-                categoryItem(ViewConstants.small),
-                categoryItem(ViewConstants.medium),
-                categoryItem(ViewConstants.large),
-                categoryItem(ViewConstants.xlarge),
-              ],
-            ),
+            canSelectMany: true,
+            onSelected: (selectedItemsList) {},
+            items: const [
+              ViewConstants.small,
+              ViewConstants.medium,
+              ViewConstants.large,
+              ViewConstants.xlarge,
+            ],
           ),
           const Expanded(child: SizedBox()),
           Container(
@@ -106,57 +101,6 @@ class _FilterListItemsState extends State<FilterListItems> {
           )
         ],
       ),
-    );
-  }
-
-  CustomInkWell categoryItem(String text) {
-    bool isSelected = text == selectedCategoryValue;
-    return CustomInkWell(
-        onTap: () {
-          selectedCategoryValue = text;
-          setState(() {});
-        },
-        child: selectableItem(text, isSelected: isSelected));
-  }
-
-  CustomInkWell sizeItem(String text) {
-    bool isSelected = text == selectedSizeValue;
-    return CustomInkWell(
-        onTap: () {
-          selectedSizeValue = text;
-          setState(() {});
-        },
-        child: selectableItem(text, isSelected: isSelected));
-  }
-
-  Row selectableItem(String text, {bool isSelected = false}) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(
-              vertical: Spacing.small, horizontal: Spacing.medium),
-          decoration: BoxDecoration(
-              border: Border.all(
-                color: AppColors.border,
-              ),
-              borderRadius: const BorderRadius.all(Radius.circular(10))),
-          child: Center(
-            child: Text(
-              text.toUpperCase(),
-              style: const TextStyle(
-                  color: AppColors.secondary, fontSize: FontSize.regular),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Text title({required String text}) {
-    return Text(
-      text.toUpperCase(),
-      style: const TextStyle(fontSize: FontSize.medium),
     );
   }
 
