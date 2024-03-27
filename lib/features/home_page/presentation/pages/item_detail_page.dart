@@ -52,7 +52,42 @@ class ItemDetailPage extends StatelessWidget {
                   const SizedBox(
                     height: Spacing.standard * 2,
                   ),
-                  const ReviewAndDiscussionSection(),
+                  Wrap(
+                    runSpacing: Spacing.standard * 3,
+                    children: [
+                      const ReviewAndDiscussionSection(),
+                      const SizedBox(
+                        width: Spacing.standard * 3,
+                      ),
+                      Container(
+                        height: 350,
+                        width: 300,
+                        padding: const EdgeInsets.all(Spacing.standard * 1.5),
+                        decoration: const BoxDecoration(
+                            color: AppColors.banner,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        child: const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: 180,
+                              child: Wrap(
+                                children: [
+                                  Text(
+                                    'Popular brands with discount over 25%',
+                                    style: TextStyle(
+                                        fontSize: FontSize.heading,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ],
               ),
             ],
@@ -114,7 +149,8 @@ class ItemDetailPage extends StatelessWidget {
             const SizedBox(
               height: Spacing.xxlarge,
             ),
-            characteristicsTile()
+            characteristicsTile(),
+            paymentAndDeliveryTile()
           ],
         ),
       ],
@@ -140,7 +176,7 @@ class ItemDetailPage extends StatelessWidget {
     );
   }
 
-  SizedBox characteristicsTile() {
+  Widget characteristicsTile() {
     final data = [
       {'Brand': 'Style & Runes'},
       {'Collection': 'Winter 2024'},
@@ -148,6 +184,20 @@ class ItemDetailPage extends StatelessWidget {
       {'Material': 'N/A'},
     ];
 
+    return expandableTile(ViewConstants.characteristics, data);
+  }
+
+  Widget paymentAndDeliveryTile() {
+    final data = [
+      {'Address': '12 street, main road, New York, USA'},
+      {'Payment method': 'Cash on delivery'},
+      {'Contact no.': '+12 232 1248021'},
+    ];
+
+    return expandableTile(ViewConstants.paymentAndDelivery, data);
+  }
+
+  Widget expandableTile(title, List data) {
     tileItem(name, value) => Padding(
           padding: const EdgeInsets.only(bottom: Spacing.normal),
           child: Row(
@@ -171,7 +221,7 @@ class ItemDetailPage extends StatelessWidget {
         tilePadding: EdgeInsets.zero,
         shape: InputBorder.none,
         title: Text(
-          ViewConstants.characteristics.toUpperCase(),
+          title.toUpperCase(),
           style: const TextStyle(fontSize: FontSize.large),
         ),
         children: data

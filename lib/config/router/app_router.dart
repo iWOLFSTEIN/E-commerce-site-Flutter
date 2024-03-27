@@ -15,58 +15,27 @@ class AppRouter {
 
   static String initial = "/$itemsPage";
 
-  // Private navigators
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
-  // static final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
-  // GoRouter configuration
   static final GoRouter router = GoRouter(
     initialLocation: initial,
     debugLogDiagnostics: true,
     navigatorKey: _rootNavigatorKey,
     routes: [
       GoRoute(
-        // parentNavigatorKey: _shellNavigatorKey,
         name: itemsPage,
         path: '/$itemsPage',
         builder: (context, state) {
           return const Home(child: ItemsPage());
         },
       ),
-
       GoRoute(
-        // parentNavigatorKey: _shellNavigatorKey,
         name: itemDetailPage,
         path: '/$itemDetailPage',
         builder: (context, state) {
           return const Home(child: ItemDetailPage());
         },
       ),
-
-      // ShellRoute(
-      //     builder: (context, state, child) {
-      //       return Home(child: child);
-      //     },
-      //     parentNavigatorKey: _rootNavigatorKey,
-      //     navigatorKey: _shellNavigatorKey,
-      //     routes: [
-      //       GoRoute(
-      //         parentNavigatorKey: _shellNavigatorKey,
-      //         name: itemsPage,
-      //         path: '/$itemsPage',
-      //         builder: (context, state) {
-      //           return const ItemsPage();
-      //         },
-      //       ),
-      //       GoRoute(
-      //         parentNavigatorKey: _shellNavigatorKey,
-      //         name: itemDetailPage,
-      //         path: '/$itemDetailPage',
-      //         builder: (context, state) {
-      //           return const ItemDetailPage();
-      //         },
-      //       )
-      //     ]),
     ],
   );
 }

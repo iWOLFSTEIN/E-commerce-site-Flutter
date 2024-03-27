@@ -102,7 +102,7 @@ class _ReviewAndDiscussionSectionState
             height: Spacing.standard * 2,
           ),
           sortReviews(),
-          for (int i = 0; i < 10; i++) reviewItem(),
+          for (int i = 0; i < 2; i++) reviewItem(),
           const SizedBox(
             height: Spacing.standard * 2,
           ),

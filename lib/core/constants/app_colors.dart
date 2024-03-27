@@ -28,4 +28,5 @@ class AppColors {
   static const Color surface = Color(0xFFE3E3E3);
 
   static const Color placeholder = Color(0xFFF4F4F4);
+  static const Color banner = Color(0xFFd7d2bf);
 }
