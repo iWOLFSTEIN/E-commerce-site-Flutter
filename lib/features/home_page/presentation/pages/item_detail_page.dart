@@ -5,7 +5,9 @@ import 'package:e_commerce_site/core/constants/view_constants.dart';
 import 'package:e_commerce_site/features/home_page/presentation/bloc/cubits/selected_item/selected_item.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/category_with_selectable_items.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/item_detail_page/colors_selection.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ItemDetailPage extends StatelessWidget {
@@ -15,84 +17,295 @@ class ItemDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SelectedItemCubit, SelectedItemCubitState>(
       builder: (context, state) {
-        if (state is! SelectedItemCubitDone) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
+        // if (state is! SelectedItemCubitDone) {
+        //   return const Center(
+        //     child: CircularProgressIndicator(),
+        //   );
+        // }
 
-        final headerImage = state.product?.image ?? '';
-        final title = state.product?.title ?? '';
+        final headerImage = state.product?.image ??
+            'https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
+        final title = state.product?.title ?? 'Cute White Kitten';
         dynamic rate = state.product?.rating.rate ?? 0.0;
         final rating = rate.round();
         final ratingCount = state.product?.rating.count ?? 0;
-        final price = state.product?.price;
+        final price = state.product?.price ?? 0.0;
 
         return SizedBox(
           width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                width: 1024,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Wrap(
+                    runSpacing: Spacing.standard * 3,
                     children: [
-                      itemImages(headerImage),
+                      imagesSection(headerImage),
                       const SizedBox(
                         width: Spacing.standard * 3,
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          productTitle(title),
-                          const SizedBox(
-                            height: Spacing.regular,
-                          ),
-                          productRating(rating, ratingCount),
-                          const SizedBox(
-                            height: Spacing.standard,
-                          ),
-                          productPrice(price),
-                          const SizedBox(
-                            height: Spacing.standard,
-                          ),
-                          ColorsSelection(
-                            colors: [
-                              Colors.red.withOpacity(0.4),
-                              Colors.blue.withOpacity(0.4),
-                              Colors.green.withOpacity(0.4)
-                            ],
-                            selectedColor: Colors.red.withOpacity(0.4),
-                          ),
-                          const SizedBox(
-                            height: Spacing.standard,
-                          ),
-                          CategoryWithSelectableItems(
-                            title: ViewConstants.size,
-                            onSelected: (selectedItemsList) {
-                              print(selectedItemsList);
-                            },
-                            items: const [
-                              ViewConstants.small,
-                              ViewConstants.medium,
-                              ViewConstants.large,
-                              ViewConstants.xlarge,
-                            ],
-                          ),
-                        ],
-                      )
+                      addToCartSection(title, rating, ratingCount, price),
                     ],
                   ),
-                ),
+                  const SizedBox(
+                    height: Spacing.standard * 2,
+                  ),
+                  reviewDiscussionSection(),
+                ],
               ),
             ],
           ),
         );
       },
+    );
+  }
+
+  SizedBox reviewDiscussionSection() {
+    heading() => Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              ViewConstants.reviews.toUpperCase(),
+              style: const TextStyle(
+                  color: AppColors.primary,
+                  fontSize: FontSize.large,
+                  fontWeight: FontWeight.w600),
+            ),
+            Text(
+              ViewConstants.discussions.toUpperCase(),
+              style: const TextStyle(
+                  color: AppColors.secondary,
+                  fontSize: FontSize.large,
+                  fontWeight: FontWeight.w600),
+            ),
+            const SizedBox(),
+            const SizedBox(),
+            const SizedBox(),
+            const SizedBox(),
+          ],
+        );
+
+    sort() => Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: Spacing.standard, vertical: Spacing.medium),
+              decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(5)),
+                  border: Border.all(color: AppColors.border)),
+              child: const Row(
+                children: [
+                  Text(ViewConstants.newest),
+                  SizedBox(
+                    width: Spacing.standard,
+                  ),
+                  Icon(
+                    Icons.keyboard_arrow_down_outlined,
+                    size: 18,
+                  )
+                ],
+              ),
+            ),
+          ],
+        );
+    return SizedBox(
+      width: 404,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          heading(),
+          const SizedBox(
+            height: Spacing.standard * 2,
+          ),
+          sort(),
+          const SizedBox(
+            height: Spacing.standard * 2,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Row addToCartSection(String title, rating, int ratingCount, double price) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            productTitle(title),
+            const SizedBox(
+              height: Spacing.regular,
+            ),
+            productRating(rating, ratingCount),
+            const SizedBox(
+              height: Spacing.xxlarge + 2,
+            ),
+            productPrice(price),
+            const SizedBox(
+              height: Spacing.xxlarge + 2,
+            ),
+            ColorsSelection(
+              colors: [
+                Colors.red.withOpacity(0.4),
+                Colors.blue.withOpacity(0.4),
+                Colors.green.withOpacity(0.4)
+              ],
+              selectedColor: Colors.red.withOpacity(0.4),
+            ),
+            const SizedBox(
+              height: Spacing.xxlarge,
+            ),
+            CategoryWithSelectableItems(
+              title: ViewConstants.size,
+              onSelected: (selectedItemsList) {},
+              items: const [
+                ViewConstants.small,
+                ViewConstants.medium,
+                ViewConstants.large,
+                ViewConstants.xlarge,
+              ],
+            ),
+            const SizedBox(
+              height: Spacing.xxlarge * 2,
+            ),
+            addToCartButton(),
+            const SizedBox(
+              height: Spacing.normal,
+            ),
+            freeDeliveryText(),
+            const SizedBox(
+              height: Spacing.xxlarge,
+            ),
+            characteristicsTile()
+          ],
+        ),
+      ],
+    );
+  }
+
+  Row freeDeliveryText() {
+    return const Row(
+      children: [
+        Icon(
+          Icons.delivery_dining_outlined,
+          color: AppColors.primary,
+          size: 16,
+        ),
+        SizedBox(
+          width: Spacing.small,
+        ),
+        Text(
+          '${ViewConstants.freeDeliveryOnTheOrderOver}50.0',
+          style: TextStyle(fontSize: FontSize.medium),
+        )
+      ],
+    );
+  }
+
+  SizedBox characteristicsTile() {
+    final data = [
+      {'Brand': 'Style & Runes'},
+      {'Collection': 'Winter 2024'},
+      {'Item no.': '9324802'},
+      {'Material': 'N/A'},
+    ];
+
+    tileItem(name, value) => Padding(
+          padding: const EdgeInsets.only(bottom: Spacing.normal),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                name,
+                style: const TextStyle(
+                    color: AppColors.secondary, fontSize: FontSize.medium),
+              ),
+              Text(
+                value,
+                style: const TextStyle(fontSize: FontSize.medium),
+              )
+            ],
+          ),
+        );
+    return SizedBox(
+      width: 404,
+      child: ExpansionTile(
+        tilePadding: EdgeInsets.zero,
+        shape: InputBorder.none,
+        title: Text(
+          ViewConstants.characteristics.toUpperCase(),
+          style: const TextStyle(fontSize: FontSize.large),
+        ),
+        children: data
+            .map((item) => tileItem(item.keys.first, item.values.first))
+            .toList(),
+      ),
+    );
+  }
+
+  Row imagesSection(String headerImage) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        itemImages(headerImage),
+      ],
+    );
+  }
+
+  Widget addToCartButton() {
+    return SizedBox(
+      width: 404,
+      child: Row(
+        children: [
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: Spacing.regular),
+              decoration: const BoxDecoration(
+                color: AppColors.primary,
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.shopping_bag_outlined,
+                    color: AppColors.white,
+                    size: 16,
+                  ),
+                  const SizedBox(
+                    width: Spacing.normal,
+                  ),
+                  Text(
+                    ViewConstants.addToCart.toUpperCase(),
+                    style: const TextStyle(color: AppColors.white),
+                  )
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: Spacing.normal,
+          ),
+          Container(
+            width: 60,
+            padding: const EdgeInsets.symmetric(vertical: Spacing.regular),
+            decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                border: Border.all(color: AppColors.primary)),
+            child: const Icon(
+              Icons.favorite_border_outlined,
+              color: AppColors.primary,
+              size: 18,
+            ),
+          )
+        ],
+      ),
     );
   }
 
@@ -130,22 +343,31 @@ class ItemDetailPage extends StatelessWidget {
     );
   }
 
-  Text productTitle(String title) {
-    return Text(
-      title.toUpperCase(),
-      style: const TextStyle(fontSize: FontSize.heading),
+  Widget productTitle(String title) {
+    return SizedBox(
+      width: 404,
+      child: Wrap(
+        children: [
+          Text(
+            title.toUpperCase(),
+            style: const TextStyle(fontSize: FontSize.heading),
+          ),
+        ],
+      ),
     );
   }
 
   Widget itemImages(String imageUrl) {
     if (imageUrl.isEmpty) return Container();
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         headerImage(imageUrl),
         const SizedBox(
           height: Spacing.standard,
         ),
         Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             subImage(imageUrl),
             const SizedBox(

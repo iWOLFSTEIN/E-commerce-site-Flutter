@@ -56,4 +56,10 @@ class ViewConstants {
   static const String anErrorOccured = "An error occurred";
   static const String reviews = "Reviews";
   static const String colors = "Colors";
+  static const String addToCart = "Add to cart";
+  static const String characteristics = "Characteristics";
+  static const String freeDeliveryOnTheOrderOver =
+      "Free delivery on the order over \$";
+  static const String discussions = "Discussions";
+  static const String newest = "Newest";
 }

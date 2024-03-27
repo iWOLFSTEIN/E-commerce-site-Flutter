@@ -67,10 +67,6 @@ class _FilterListItemsState extends State<FilterListItems> {
           const SizedBox(
             height: Spacing.standard,
           ),
-          const CategoryTitle(text: ViewConstants.size),
-          const SizedBox(
-            height: Spacing.normal,
-          ),
           CategoryWithSelectableItems(
             title: ViewConstants.size,
             width: 368,
