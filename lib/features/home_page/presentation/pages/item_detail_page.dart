@@ -5,9 +5,9 @@ import 'package:e_commerce_site/core/constants/view_constants.dart';
 import 'package:e_commerce_site/features/home_page/presentation/bloc/cubits/selected_item/selected_item.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/category_with_selectable_items.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/item_detail_page/colors_selection.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:e_commerce_site/features/home_page/presentation/widgets/item_detail_page/review_and_discussion_section.dart';
+import 'package:e_commerce_site/features/home_page/presentation/widgets/rating_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ItemDetailPage extends StatelessWidget {
@@ -52,79 +52,13 @@ class ItemDetailPage extends StatelessWidget {
                   const SizedBox(
                     height: Spacing.standard * 2,
                   ),
-                  reviewDiscussionSection(),
+                  const ReviewAndDiscussionSection(),
                 ],
               ),
             ],
           ),
         );
       },
-    );
-  }
-
-  SizedBox reviewDiscussionSection() {
-    heading() => Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              ViewConstants.reviews.toUpperCase(),
-              style: const TextStyle(
-                  color: AppColors.primary,
-                  fontSize: FontSize.large,
-                  fontWeight: FontWeight.w600),
-            ),
-            Text(
-              ViewConstants.discussions.toUpperCase(),
-              style: const TextStyle(
-                  color: AppColors.secondary,
-                  fontSize: FontSize.large,
-                  fontWeight: FontWeight.w600),
-            ),
-            const SizedBox(),
-            const SizedBox(),
-            const SizedBox(),
-            const SizedBox(),
-          ],
-        );
-
-    sort() => Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: Spacing.standard, vertical: Spacing.medium),
-              decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(5)),
-                  border: Border.all(color: AppColors.border)),
-              child: const Row(
-                children: [
-                  Text(ViewConstants.newest),
-                  SizedBox(
-                    width: Spacing.standard,
-                  ),
-                  Icon(
-                    Icons.keyboard_arrow_down_outlined,
-                    size: 18,
-                  )
-                ],
-              ),
-            ),
-          ],
-        );
-    return SizedBox(
-      width: 404,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          heading(),
-          const SizedBox(
-            height: Spacing.standard * 2,
-          ),
-          sort(),
-          const SizedBox(
-            height: Spacing.standard * 2,
-          ),
-        ],
-      ),
     );
   }
 
@@ -140,7 +74,7 @@ class ItemDetailPage extends StatelessWidget {
             const SizedBox(
               height: Spacing.regular,
             ),
-            productRating(rating, ratingCount),
+            RatingWidget(rating: rating, ratingCount: ratingCount),
             const SizedBox(
               height: Spacing.xxlarge + 2,
             ),
@@ -314,32 +248,6 @@ class ItemDetailPage extends StatelessWidget {
       '\$$price',
       style: const TextStyle(
           fontSize: FontSize.xxlarge * 2.25, fontWeight: FontWeight.w500),
-    );
-  }
-
-  Row productRating(rating, int ratingCount) {
-    return Row(
-      children: [
-        Wrap(
-          spacing: Spacing.xsmall,
-          children: [
-            for (int i = 1; i <= 5; i++)
-              Icon(
-                i <= rating ? Icons.star : Icons.star_border,
-                color: i <= rating ? AppColors.highlight : AppColors.border,
-                size: 17,
-              )
-          ],
-        ),
-        const SizedBox(
-          width: Spacing.medium,
-        ),
-        Text(
-          '$ratingCount ${ViewConstants.reviews.toLowerCase()}',
-          style: const TextStyle(
-              color: AppColors.secondary, fontSize: FontSize.regular),
-        )
-      ],
     );
   }
 

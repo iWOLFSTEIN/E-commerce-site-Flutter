@@ -62,4 +62,9 @@ class ViewConstants {
       "Free delivery on the order over \$";
   static const String discussions = "Discussions";
   static const String newest = "Newest";
+  static const String highestRated = "Highest Rated";
+  static const String verifiedPurchases = "Verified Purchase";
+  static const String lowestRated = "Lowest Rated";
+  static const String mostRelevant = "Most Relevant";
+  static const String reply = "Reply";
 }
