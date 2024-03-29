@@ -68,4 +68,5 @@ class ViewConstants {
   static const String mostRelevant = "Most Relevant";
   static const String reply = "Reply";
   static const String paymentAndDelivery = "Payment And Delivery";
+  static const String viewMore = "View more";
 }

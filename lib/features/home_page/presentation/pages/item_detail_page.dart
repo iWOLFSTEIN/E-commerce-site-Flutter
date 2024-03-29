@@ -8,6 +8,7 @@ import 'package:e_commerce_site/features/home_page/presentation/widgets/item_det
 import 'package:e_commerce_site/features/home_page/presentation/widgets/item_detail_page/review_and_discussion_section.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/rating_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ItemDetailPage extends StatelessWidget {
@@ -59,33 +60,7 @@ class ItemDetailPage extends StatelessWidget {
                       const SizedBox(
                         width: Spacing.standard * 3,
                       ),
-                      Container(
-                        height: 350,
-                        width: 300,
-                        padding: const EdgeInsets.all(Spacing.standard * 1.5),
-                        decoration: const BoxDecoration(
-                            color: AppColors.banner,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        child: const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: 180,
-                              child: Wrap(
-                                children: [
-                                  Text(
-                                    'Popular brands with discount over 25%',
-                                    style: TextStyle(
-                                        fontSize: FontSize.heading,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      )
+                      advertisementBanner()
                     ],
                   ),
                 ],
@@ -94,6 +69,77 @@ class ItemDetailPage extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  Container advertisementBanner() {
+    bannerText() => const SizedBox(
+          width: 180,
+          child: Wrap(
+            children: [
+              Text(
+                'Popular brands with discount over 25%',
+                style: TextStyle(
+                    fontSize: FontSize.heading, fontWeight: FontWeight.w600),
+              ),
+            ],
+          ),
+        );
+
+    viewMoreButton() => Container(
+          padding: const EdgeInsets.symmetric(
+              horizontal: Spacing.standard, vertical: Spacing.normal),
+          decoration: BoxDecoration(
+              border: Border.all(color: AppColors.primary),
+              borderRadius: const BorderRadius.all(Radius.circular(5))),
+          child: const Text(ViewConstants.viewMore),
+        );
+
+    bannerIcons(iconData, [color = AppColors.primary, size = 28]) => Icon(
+          iconData,
+          color: color,
+          size: size,
+        );
+
+    return Container(
+      height: 330,
+      width: 300,
+      padding: const EdgeInsets.all(Spacing.standard * 1.5),
+      decoration: const BoxDecoration(
+          color: AppColors.banner,
+          borderRadius: BorderRadius.all(Radius.circular(10))),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              bannerText(),
+              const SizedBox(
+                height: Spacing.standard,
+              ),
+              Wrap(
+                spacing: Spacing.xsmall,
+                children: [
+                  bannerIcons(Icons.account_tree_rounded, Colors.blue),
+                  bannerIcons(Icons.access_time_filled, Colors.red),
+                  bannerIcons(Icons.add_business, Colors.green),
+                  bannerIcons(Icons.account_balance_sharp, Colors.purple),
+                ],
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              viewMoreButton(),
+              const SizedBox(
+                height: Spacing.standard,
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 
