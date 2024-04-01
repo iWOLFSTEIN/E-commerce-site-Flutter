@@ -2,22 +2,14 @@ import 'package:e_commerce_site/features/home_page/domain/entities/product.dart'
 
 class ProductModel extends ProductEntity {
   const ProductModel({
-    required final int id,
-    required final String title,
-    required final double price,
-    required final String category,
-    required final String description,
-    required final String image,
-    required final RatingModel rating,
-  }) : super(
-          id: id,
-          title: title,
-          price: price,
-          category: category,
-          description: description,
-          image: image,
-          rating: rating,
-        );
+    required super.id,
+    required super.title,
+    required super.price,
+    required super.category,
+    required super.description,
+    required super.image,
+    required RatingModel super.rating,
+  });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
@@ -44,11 +36,7 @@ class ProductModel extends ProductEntity {
 }
 
 class RatingModel extends RatingEntity {
-  const RatingModel({required final int count, required final double rate})
-      : super(
-          count: count,
-          rate: rate,
-        );
+  const RatingModel({required super.count, required super.rate});
 
   factory RatingModel.fromJson(Map<String, dynamic> json) {
     return RatingModel(count: json['count'] ?? 0, rate: json['rate'] ?? 0.0);

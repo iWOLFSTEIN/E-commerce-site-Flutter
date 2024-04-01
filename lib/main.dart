@@ -7,6 +7,9 @@ import 'package:e_commerce_site/features/home_page/presentation/bloc/cubits/sele
 import 'package:e_commerce_site/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/web.dart';
+
+final Logger logger = Logger();
 
 void main() async {
   await initializeDependencies();
@@ -33,7 +36,6 @@ class MainApp extends StatelessWidget {
         routeInformationProvider: AppRouter.router.routeInformationProvider,
         routerDelegate: AppRouter.router.routerDelegate,
         routeInformationParser: AppRouter.router.routeInformationParser,
-        // home: const Home(),
       ),
     );
   }

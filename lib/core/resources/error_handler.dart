@@ -4,8 +4,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:e_commerce_site/core/constants/view_constants.dart';
 import 'package:e_commerce_site/core/resources/data_state.dart';
-import 'package:e_commerce_site/core/utils/console_log.dart';
-import 'package:e_commerce_site/injection_container.dart';
+import 'package:e_commerce_site/main.dart';
 import 'package:retrofit/retrofit.dart';
 
 class ErrorHandler {
@@ -59,7 +58,7 @@ class ErrorHandler {
   }
 
   static void showErrorInConsole({error, type, stackTrace, response}) {
-    sl<ConsoleLog>().error({
+    logger.e({
       'error': error,
       'type': type,
       'response': response,

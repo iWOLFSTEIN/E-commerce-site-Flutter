@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:e_commerce_site/core/resources/data_state.dart';
 import 'package:e_commerce_site/features/home_page/domain/entities/product.dart';
-import 'package:e_commerce_site/features/home_page/domain/usecase/get_products.dart';
+import 'package:e_commerce_site/features/home_page/domain/usecase/get_products/get_products.dart';
 import 'package:equatable/equatable.dart';
 
 part 'product_event.dart';

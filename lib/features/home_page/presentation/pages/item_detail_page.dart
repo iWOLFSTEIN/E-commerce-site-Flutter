@@ -8,7 +8,6 @@ import 'package:e_commerce_site/features/home_page/presentation/widgets/item_det
 import 'package:e_commerce_site/features/home_page/presentation/widgets/item_detail_page/review_and_discussion_section.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/rating_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ItemDetailPage extends StatelessWidget {

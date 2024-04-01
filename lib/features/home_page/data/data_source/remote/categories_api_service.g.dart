@@ -26,8 +26,8 @@ class _CategoriesApiService implements CategoriesApiService {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<List<dynamic>>(
-        _setStreamType<HttpResponse<CategoriesModel>>(Options(
+    final _result = await _dio
+        .fetch<List>(_setStreamType<HttpResponse<CategoriesModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,

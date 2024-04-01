@@ -17,4 +17,15 @@ class ProductRespositoryImpl extends ProductRepository {
 
     return dataState;
   }
+
+  @override
+  Future<DataState<List<ProductModel>>> getProductsFromCategory(
+      String category) async {
+    final dataState = await ErrorHandler.onNetworkRequest<List<ProductModel>>(
+        fetch: () async {
+      return await _productsApiService.getProducts();
+    });
+
+    return dataState;
+  }
 }
