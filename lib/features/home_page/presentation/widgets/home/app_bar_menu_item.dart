@@ -1,5 +1,6 @@
 import 'package:e_commerce_site/core/constants/app_colors.dart';
 import 'package:e_commerce_site/core/constants/font_size.dart';
+import 'package:e_commerce_site/features/home_page/presentation/bloc/blocs/product/product_bloc.dart';
 import 'package:e_commerce_site/features/home_page/presentation/bloc/cubits/selected_items_thread.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/custom_ink_well.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +38,18 @@ class _AppBarMenuItemState extends State<AppBarMenuItem> {
   }
 
   void onTap() {
+    getProductsFromCategory();
+    setSelectionThreadState();
+  }
+
+  void getProductsFromCategory() {
+    final productsBloc = BlocProvider.of<ProductBloc>(context);
+    productsBloc
+      ..add(const ClearAllProducts())
+      ..add(GetProducts(category: widget.title));
+  }
+
+  void setSelectionThreadState() {
     final selectedItemsThreadCubit =
         BlocProvider.of<SelectedItemsThreadCubit>(context);
 

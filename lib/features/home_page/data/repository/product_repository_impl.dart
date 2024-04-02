@@ -23,7 +23,7 @@ class ProductRespositoryImpl extends ProductRepository {
       String category) async {
     final dataState = await ErrorHandler.onNetworkRequest<List<ProductModel>>(
         fetch: () async {
-      return await _productsApiService.getProducts();
+      return await _productsApiService.getProductsFromCategory(category);
     });
 
     return dataState;

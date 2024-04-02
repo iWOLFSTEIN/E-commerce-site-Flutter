@@ -11,7 +11,7 @@ abstract class ProductsApiService {
   @GET('/${ApiEndpoints.products}')
   Future<HttpResponse<List<ProductModel>>> getProducts();
 
-  @GET('/${ApiEndpoints.products}/{category}')
+  @GET('/${ApiEndpoints.productsFromCategory}/{category}')
   Future<HttpResponse<List<ProductModel>>> getProductsFromCategory(
       @Path('category') String category);
 }

@@ -36,7 +36,7 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<GetCategoriesUseCase>(GetCategoriesUseCase(sl()));
 
   //Blocs
-  sl.registerFactory<ProductBloc>(() => ProductBloc(sl()));
+  sl.registerFactory<ProductBloc>(() => ProductBloc(sl(), sl()));
   sl.registerFactory<CategoriesBloc>(() => CategoriesBloc(sl()));
 
   //Cubits

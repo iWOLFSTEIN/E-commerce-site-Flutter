@@ -65,7 +65,7 @@ class _ProductsApiService implements ProductsApiService {
     )
             .compose(
               _dio.options,
-              '/products/${category}',
+              '/products/category/${category}',
               queryParameters: queryParameters,
               data: _data,
             )
