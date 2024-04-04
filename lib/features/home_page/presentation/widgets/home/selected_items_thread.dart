@@ -1,9 +1,12 @@
 import 'package:e_commerce_site/core/constants/app_colors.dart';
 import 'package:e_commerce_site/core/constants/font_size.dart';
 import 'package:e_commerce_site/core/utils/responsive.dart';
+import 'package:e_commerce_site/features/home_page/presentation/bloc/blocs/product/product_bloc.dart';
 import 'package:e_commerce_site/features/home_page/presentation/bloc/cubits/selected_items_thread.dart';
+import 'package:e_commerce_site/features/home_page/presentation/widgets/custom_ink_well.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class SelectedItemsThread extends StatefulWidget {
   const SelectedItemsThread({
@@ -15,7 +18,7 @@ class SelectedItemsThread extends StatefulWidget {
 }
 
 class _SelectedItemsThreadState extends State<SelectedItemsThread> {
-  Color? textColor;
+  Color textColor = AppColors.secondary;
 
   @override
   Widget build(BuildContext context) {
@@ -63,11 +66,15 @@ class _SelectedItemsThreadState extends State<SelectedItemsThread> {
       {required bool isNotLastItem, required bool isSecondLastItem}) {
     return Row(
       children: [
-        Text(
-          title.toUpperCase(),
-          style: TextStyle(
-              color: isNotLastItem ? AppColors.secondary : AppColors.primary,
-              fontSize: FontSize.regular),
+        CustomInkWell(
+          onTap: isNotLastItem ? onTap : null,
+          onHover: onHover,
+          child: Text(
+            title.toUpperCase(),
+            style: TextStyle(
+                color: isNotLastItem ? textColor : AppColors.primary,
+                fontSize: FontSize.regular),
+          ),
         ),
         if (isNotLastItem) threadIcon(isSecondLastItem: isSecondLastItem)
       ],
@@ -78,8 +85,30 @@ class _SelectedItemsThreadState extends State<SelectedItemsThread> {
     if (isHovering) {
       textColor = AppColors.highlight;
     } else {
-      textColor = null;
+      textColor = AppColors.secondary;
     }
     setState(() {});
+  }
+
+  void onTap() {
+    goToItemsPage();
+    getAllTheProducts();
+    clearSelectionThread();
+  }
+
+  void goToItemsPage() {
+    context.goNamed('itemsPage');
+  }
+
+  void getAllTheProducts() {
+    final productsBloc = context.read<ProductBloc>();
+    productsBloc
+      ..add(const ClearAllProducts())
+      ..add(const GetProducts());
+  }
+
+  void clearSelectionThread() {
+    final selectedItemsThreadCubit = context.read<SelectedItemsThreadCubit>();
+    selectedItemsThreadCubit.removeLastItemFromThread();
   }
 }

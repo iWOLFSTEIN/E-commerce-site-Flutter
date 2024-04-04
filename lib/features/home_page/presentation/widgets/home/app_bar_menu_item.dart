@@ -20,11 +20,23 @@ class _AppBarMenuItemState extends State<AppBarMenuItem> {
   Color? color;
   @override
   Widget build(BuildContext context) {
-    return CustomInkWell(
-      onHover: onHover,
-      onTap: onTap,
-      child: Text(widget.title.toUpperCase(),
-          style: TextStyle(fontSize: FontSize.regular, color: color)),
+    return BlocBuilder<SelectedItemsThreadCubit, List>(
+      builder: (context, state) {
+        bool isAppBarMenuItemSelected = false;
+        if (state.isNotEmpty) {
+          isAppBarMenuItemSelected =
+              widget.title.toLowerCase() == state.last.toString().toLowerCase();
+        }
+        return CustomInkWell(
+          onHover: onHover,
+          onTap: onTap,
+          child: Text(widget.title.toUpperCase(),
+              style: TextStyle(
+                  fontSize: FontSize.regular,
+                  color:
+                      isAppBarMenuItemSelected ? AppColors.highlight : color)),
+        );
+      },
     );
   }
 
@@ -54,7 +66,7 @@ class _AppBarMenuItemState extends State<AppBarMenuItem> {
         BlocProvider.of<SelectedItemsThreadCubit>(context);
 
     if (selectedItemsThreadCubit.state.length > 1) {
-      selectedItemsThreadCubit.removeItemFromThread();
+      selectedItemsThreadCubit.removeLastItemFromThread();
     }
     if (selectedItemsThreadCubit.state.contains(widget.title)) return;
     selectedItemsThreadCubit.addItemToThread(item: widget.title);

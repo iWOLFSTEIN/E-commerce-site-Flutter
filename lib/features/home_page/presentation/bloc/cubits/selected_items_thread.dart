@@ -7,5 +7,5 @@ class SelectedItemsThreadCubit extends Cubit<List> {
   void addItemToThread({required String item}) =>
       emit(List.from(state)..add(item));
 
-  void removeItemFromThread() => emit(List.from(state)..removeLast());
+  void removeLastItemFromThread() => emit(List.from(state)..removeLast());
 }

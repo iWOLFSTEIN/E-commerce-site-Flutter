@@ -140,8 +140,10 @@ class _HomeState extends State<Home> {
     return BlocBuilder<ProductBloc, ProductState>(
       builder: (context, state) {
         if (state is ProductsLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return const Expanded(
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
           );
         } else if (state is ProductsDone) {
           return Expanded(
