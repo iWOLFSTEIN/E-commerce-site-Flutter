@@ -1,10 +1,11 @@
 import 'package:e_commerce_site/features/home_page/domain/entities/product.dart';
 import 'package:e_commerce_site/features/home_page/presentation/bloc/blocs/product/product_bloc.dart';
 import 'package:e_commerce_site/features/home_page/presentation/bloc/cubits/selected_item/selected_item.dart';
+import 'package:e_commerce_site/features/home_page/presentation/widgets/items_page/sort_by_button.dart';
+import 'package:e_commerce_site/features/home_page/presentation/widgets/items_page/filters_tile_item.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/decorated_text.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/items_page/filter_list_items.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/items_page/items_page_heading.dart';
-import 'package:e_commerce_site/features/home_page/presentation/widgets/pagination_controls.dart';
 import 'package:e_commerce_site/core/constants/app_assets.dart';
 import 'package:e_commerce_site/core/constants/app_colors.dart';
 import 'package:e_commerce_site/core/constants/app_icons.dart';
@@ -50,32 +51,28 @@ class _ItemsPageState extends State<ItemsPage> {
               color: AppColors.border,
             ),
             allShoppingItems(state.products),
-            const SizedBox(
-              height: Spacing.standard * 1.5,
-            ),
-            const DecoratedText(text: ViewConstants.showMore),
-            const SizedBox(
-              height: Spacing.standard * 3,
-            ),
-            PaginationControls(
-                currentPage: currentPageNumber,
-                totalPages: totalPages,
-                onNextPressed: () {
-                  if (currentPageNumber < totalPages) {
-                    currentPageNumber++;
-                    setState(() {});
-                  }
-                },
-                onPrevPressed: () {
-                  if (currentPageNumber > 1) {
-                    currentPageNumber--;
-                    setState(() {});
-                  }
-                },
-                onPageSelected: (pageNumber) {
-                  currentPageNumber = pageNumber;
-                  setState(() {});
-                })
+            // const SizedBox(
+            //   height: Spacing.standard * 3,
+            // ),
+            // PaginationControls(
+            //     currentPage: currentPageNumber,
+            //     totalPages: totalPages,
+            //     onNextPressed: () {
+            //       if (currentPageNumber < totalPages) {
+            //         currentPageNumber++;
+            //         setState(() {});
+            //       }
+            //     },
+            //     onPrevPressed: () {
+            //       if (currentPageNumber > 1) {
+            //         currentPageNumber--;
+            //         setState(() {});
+            //       }
+            //     },
+            //     onPageSelected: (pageNumber) {
+            //       currentPageNumber = pageNumber;
+            //       setState(() {});
+            //     })
           ],
         );
       },
@@ -85,9 +82,17 @@ class _ItemsPageState extends State<ItemsPage> {
   Container allShoppingItems(products) {
     return Container(
       alignment: Alignment.center,
-      child: Wrap(
+      child: Column(
         children: [
-          for (ProductEntity product in products) shoppingItem(product)
+          Wrap(
+            children: [
+              for (ProductEntity product in products) shoppingItem(product),
+            ],
+          ),
+          const SizedBox(
+            height: Spacing.standard * 3,
+          ),
+          const DecoratedText(text: ViewConstants.showMore),
         ],
       ),
     );
@@ -186,37 +191,15 @@ class _ItemsPageState extends State<ItemsPage> {
         SizedBox(
           width: Responsive.width(context) * 2,
         ),
-        Row(
-          children: [sortByItem()],
+        const Row(
+          children: [SortByButton()],
         )
       ],
     );
   }
 
-  Widget sortByItem() {
-    return filtersTileItem(
-        showDarkColor: true,
-        child: Row(
-          children: [
-            Text(
-              ViewConstants.sortBy.toUpperCase(),
-              style: const TextStyle(
-                  color: AppColors.white, fontSize: FontSize.regular),
-            ),
-            const SizedBox(
-              width: Spacing.normal,
-            ),
-            const Icon(
-              Icons.add,
-              color: AppColors.white,
-              size: 20,
-            )
-          ],
-        ));
-  }
-
   Widget filterItem(String text) {
-    return filtersTileItem(
+    return FiltersTileItem(
         child: Row(
       children: [
         Text(
@@ -238,7 +221,7 @@ class _ItemsPageState extends State<ItemsPage> {
 
   Widget filtersButton(int filtersCount) {
     return Builder(builder: (context) {
-      return filtersTileItem(
+      return FiltersTileItem(
         showDarkColor: true,
         onTap: () {
           showPopover(
@@ -277,29 +260,5 @@ class _ItemsPageState extends State<ItemsPage> {
         ),
       );
     });
-  }
-
-  Widget filtersTileItem(
-      {required Widget child, Function()? onTap, bool showDarkColor = false}) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(
-              right: Spacing.medium, bottom: Spacing.medium),
-          child: InkWell(
-            onTap: onTap,
-            child: Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: Spacing.regular, vertical: Spacing.small),
-                decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.primary),
-                    color: showDarkColor ? AppColors.primary : null,
-                    borderRadius: const BorderRadius.all(Radius.circular(8))),
-                child: child),
-          ),
-        ),
-      ],
-    );
   }
 }

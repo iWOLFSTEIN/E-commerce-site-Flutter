@@ -69,4 +69,8 @@ class ViewConstants {
   static const String reply = "Reply";
   static const String paymentAndDelivery = "Payment And Delivery";
   static const String viewMore = "View more";
+  static const String ascendingOrder = "ascending order";
+  static const String descendingOrder = "descending order";
+  static const String asce = "Asce";
+  static const String desc = "Desc";
 }

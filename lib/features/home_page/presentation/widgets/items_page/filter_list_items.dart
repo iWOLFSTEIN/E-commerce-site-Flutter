@@ -4,10 +4,12 @@ import 'package:e_commerce_site/core/constants/spacing.dart';
 import 'package:e_commerce_site/core/constants/view_constants.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/category_title.dart';
 import 'package:e_commerce_site/features/home_page/presentation/widgets/category_with_selectable_items.dart';
+import 'package:e_commerce_site/features/home_page/presentation/widgets/custom_text_button.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class FilterListItems extends StatefulWidget {
-  const FilterListItems({Key? key}) : super(key: key);
+  const FilterListItems({super.key});
 
   @override
   State<FilterListItems> createState() => _FilterListItemsState();
@@ -80,20 +82,10 @@ class _FilterListItemsState extends State<FilterListItems> {
             ],
           ),
           const Expanded(child: SizedBox()),
-          Container(
-            decoration: const BoxDecoration(
-                color: AppColors.primary,
-                borderRadius: BorderRadius.all(Radius.circular(12))),
-            height: 40,
-            width: double.infinity,
-            child: TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text(
-                  ViewConstants.apply.toUpperCase(),
-                  style: const TextStyle(color: AppColors.white),
-                )),
+          CustomTextButton(
+            onPressed: () {
+              context.pop();
+            },
           )
         ],
       ),
