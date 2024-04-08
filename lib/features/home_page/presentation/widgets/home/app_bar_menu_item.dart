@@ -56,9 +56,7 @@ class _AppBarMenuItemState extends State<AppBarMenuItem> {
 
   void getProductsFromCategory() {
     final productsBloc = BlocProvider.of<ProductBloc>(context);
-    productsBloc
-      ..add(const ClearAllProducts())
-      ..add(GetProducts(category: widget.title));
+    productsBloc.add(GetProducts(category: widget.title));
   }
 
   void setSelectionThreadState() {

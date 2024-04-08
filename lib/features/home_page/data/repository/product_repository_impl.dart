@@ -9,21 +9,22 @@ class ProductRespositoryImpl extends ProductRepository {
   ProductRespositoryImpl(this._productsApiService);
 
   @override
-  Future<DataState<List<ProductModel>>> getProducts() async {
+  Future<DataState<List<ProductModel>>> getProducts({String? sort}) async {
     final dataState = await ErrorHandler.onNetworkRequest<List<ProductModel>>(
         fetch: () async {
-      return await _productsApiService.getProducts();
+      return await _productsApiService.getProducts(sort: sort);
     });
 
     return dataState;
   }
 
   @override
-  Future<DataState<List<ProductModel>>> getProductsFromCategory(
-      String category) async {
+  Future<DataState<List<ProductModel>>> getProductsFromCategory(String category,
+      {String? sort}) async {
     final dataState = await ErrorHandler.onNetworkRequest<List<ProductModel>>(
         fetch: () async {
-      return await _productsApiService.getProductsFromCategory(category);
+      return await _productsApiService.getProductsFromCategory(category,
+          sort: sort);
     });
 
     return dataState;

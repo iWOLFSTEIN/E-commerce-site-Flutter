@@ -166,12 +166,6 @@ class _ItemsPageState extends State<ItemsPage> {
       "Engine",
       "20\$ - 40\$",
       "Size M",
-      "Engine",
-      "20\$ - 40\$",
-      "Size M",
-      "Engine",
-      "20\$ - 40\$",
-      "Size M",
     ];
 
     List<Widget> filtersWidgetList = [filtersButton(filtersList.length)];

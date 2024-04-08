@@ -9,7 +9,7 @@ class GetProductsUseCase implements UseCase {
   const GetProductsUseCase(this.productRepository);
 
   @override
-  Future<DataState<List<ProductEntity>>> call({params}) async {
-    return await productRepository.getProducts();
+  Future<DataState<List<ProductEntity>>> call({String? sort}) async {
+    return await productRepository.getProducts(sort: sort);
   }
 }

@@ -21,9 +21,10 @@ class _ProductsApiService implements ProductsApiService {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<List<ProductModel>>> getProducts() async {
+  Future<HttpResponse<List<ProductModel>>> getProducts({String? sort}) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'sort': sort};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<List<dynamic>>(
@@ -52,9 +53,12 @@ class _ProductsApiService implements ProductsApiService {
 
   @override
   Future<HttpResponse<List<ProductModel>>> getProductsFromCategory(
-      String category) async {
+    String category, {
+    String? sort,
+  }) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'sort': sort};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<List<dynamic>>(

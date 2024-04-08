@@ -102,9 +102,7 @@ class _SelectedItemsThreadState extends State<SelectedItemsThread> {
 
   void getAllTheProducts() {
     final productsBloc = context.read<ProductBloc>();
-    productsBloc
-      ..add(const ClearAllProducts())
-      ..add(const GetProducts());
+    productsBloc.add(const GetProducts());
   }
 
   void clearSelectionThread() {

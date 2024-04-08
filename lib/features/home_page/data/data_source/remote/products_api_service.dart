@@ -9,9 +9,11 @@ abstract class ProductsApiService {
   factory ProductsApiService(Dio dio) = _ProductsApiService;
 
   @GET('/${ApiEndpoints.products}')
-  Future<HttpResponse<List<ProductModel>>> getProducts();
+  Future<HttpResponse<List<ProductModel>>> getProducts(
+      {@Query('sort') String? sort});
 
   @GET('/${ApiEndpoints.productsFromCategory}/{category}')
   Future<HttpResponse<List<ProductModel>>> getProductsFromCategory(
-      @Path('category') String category);
+      @Path('category') String category,
+      {@Query('sort') String? sort});
 }
